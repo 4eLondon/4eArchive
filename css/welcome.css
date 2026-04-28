@@ -1,0 +1,437 @@
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+    --font-body: 'Times New Roman', Times, Georgia, serif;
+    --accent: #c0392b;
+    --accent-hover: #a93226;
+    --bg: #ffffff;
+    --bg-2: #f5f5f5;
+    --ink: #111111;
+    --ink-2: #1c1c1c;
+    --ink-3: #555555;
+    --border: #e0e0e0;
+    --radius: 8px;
+}
+
+/* ---- DARK MODE ---- */
+[data-theme="dark"] {
+    --bg: #0f0f0f;
+    --bg-2: #1a1a1a;
+    --ink: #f0f0f0;
+    --ink-2: #cccccc;
+    --ink-3: #888888;
+    --border: #2a2a2a;
+}
+
+html, body {
+    height: 100%;
+    font-family: var(--font-body);
+    color: var(--ink);
+    background: transparent;
+    overflow: hidden;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* ---- BACKGROUND IMAGE + BLUR ---- */
+body {
+    background-color: #f5f5f5;
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    inset: -10px;
+    background-image: url('/WD3_Project_Sem2_MangaWebsite/Project/images/background-2.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: blur(6px);
+    z-index: -1;
+    pointer-events: none;
+}
+
+body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.85);
+    z-index: -1;
+    pointer-events: none;
+}
+
+[data-theme="dark"] body::after {
+    background: rgba(0, 0, 0, 0.80);
+}
+
+/* ---- SHELL ---- */
+.onboarding {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(0px);
+}
+
+[data-theme="dark"] .onboarding {
+    background: rgba(15, 15, 15, 0.88);
+}
+
+/* ---- TOP BAR ---- */
+.ob-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 3rem;
+    border-bottom: 1px solid var(--border);
+    z-index: 10;
+    position: relative;
+}
+
+.ob-logo {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+    flex: 1;
+}
+
+.ob-logo span { color: var(--accent); }
+
+.ob-skip {
+    background: none;
+    border: none;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    cursor: pointer;
+    padding: 6px 0;
+    transition: color 0.2s;
+    flex: 1;
+    text-align: right;
+}
+
+.ob-skip:hover { color: var(--ink); }
+
+/* ---- PROGRESS DOTS ---- */
+.ob-progress {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex: 1;
+}
+
+.ob-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--border);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.ob-dot.active {
+    background: var(--accent);
+    width: 24px;
+    border-radius: 3px;
+}
+
+.ob-dot.done {
+    background: rgba(192, 57, 43, 0.3);
+}
+
+/* ---- SLIDES CONTAINER ---- */
+.ob-slides {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.ob-slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+    opacity: 0;
+    transform: translateX(60px);
+    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+}
+
+.ob-slide.active {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: all;
+}
+
+.ob-slide.exit {
+    opacity: 0;
+    transform: translateX(-60px);
+}
+
+.ob-slide-inner {
+    display: flex;
+    align-items: center;
+    gap: 6rem;
+    max-width: 960px;
+    width: 100%;
+}
+
+/* ---- SLIDE ILLUSTRATION ---- */
+.ob-illustration {
+    flex-shrink: 0;
+    width: 280px;
+    height: 280px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.ob-illustration svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* ---- SLIDE TEXT ---- */
+.ob-text {
+    flex: 1;
+}
+
+.ob-step-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+}
+
+.ob-title {
+    font-size: 2.4rem;
+    font-weight: 800;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 1rem;
+}
+
+.ob-title span { color: var(--accent); }
+
+.ob-desc {
+    font-size: 1rem;
+    color: var(--ink-3);
+    line-height: 1.8;
+    max-width: 420px;
+    margin-bottom: 2rem;
+}
+
+/* ---- FEATURE CHIPS ---- */
+.ob-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 2rem;
+}
+
+.ob-chip {
+    background: rgba(255,255,255,0.7);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 6px 16px;
+    font-size: 0.82rem;
+    color: var(--ink-2);
+    font-weight: 600;
+    backdrop-filter: blur(4px);
+}
+
+/* ---- BOTTOM BAR ---- */
+.ob-bottombar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 3rem;
+    border-top: 1px solid var(--border);
+    position: relative;
+    z-index: 10;
+}
+
+.ob-step-count {
+    font-size: 0.8rem;
+    color: var(--ink-3);
+    letter-spacing: 0.05em;
+}
+
+.ob-nav {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.ob-btn-back {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 10px 24px;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+}
+
+.ob-btn-back:hover {
+    border-color: #aaa;
+    color: var(--ink);
+}
+
+.ob-btn-next {
+    background: var(--accent);
+    border: none;
+    border-radius: var(--radius);
+    padding: 10px 28px;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+}
+
+.ob-btn-next:hover {
+    background: var(--accent-hover);
+    transform: translateY(-1px);
+}
+
+/* ---- WELCOME SLIDE (slide 0) ---- */
+.ob-welcome {
+    flex-direction: column;
+    text-align: center;
+}
+
+.ob-welcome .ob-slide-inner {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    text-align: center;
+}
+
+.ob-welcome .ob-illustration {
+    width: 120px;
+    height: 120px;
+}
+
+.ob-welcome .ob-title {
+    font-size: 3rem;
+}
+
+.ob-welcome .ob-desc {
+    max-width: 500px;
+    margin: 0 auto 2rem;
+}
+
+.ob-username-highlight {
+    color: var(--accent);
+    font-style: italic;
+}
+
+/* ---- BACKGROUND WATERMARK ---- */
+.ob-watermark {
+    position: fixed;
+    bottom: -4rem;
+    right: -4rem;
+    font-family: 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+    font-size: 22rem;
+    font-weight: 900;
+    color: rgba(0,0,0,0.025);
+    pointer-events: none;
+    user-select: none;
+    line-height: 1;
+    z-index: 0;
+    white-space: nowrap;
+}
+
+[data-theme="dark"] .ob-watermark {
+    color: rgba(255,255,255,0.025);
+}
+
+/* ---- THEME PICKER (slide 4) ---- */
+.ob-theme-pick {
+    display: flex;
+    gap: 1rem;
+}
+
+.ob-theme-btn {
+    background: none;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 0;
+    cursor: pointer;
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.15s;
+    width: 140px;
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-body);
+}
+
+.ob-theme-btn:hover {
+    transform: translateY(-2px);
+}
+
+.ob-theme-btn.selected {
+    border-color: var(--accent);
+}
+
+.ob-theme-btn span {
+    padding: 8px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+    text-align: center;
+}
+
+.ob-theme-preview {
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+    gap: 6px;
+}
+
+.ob-theme-light { background: #f5f5f5; }
+.ob-theme-dark  { background: #111111; }
+
+.ob-tp-bar {
+    height: 8px;
+    border-radius: 2px;
+    background: rgba(0,0,0,0.08);
+}
+.ob-theme-dark .ob-tp-bar { background: rgba(255,255,255,0.08); }
+
+.ob-tp-lines { display: flex; flex-direction: column; gap: 4px; margin-top: 4px; }
+
+.ob-tp-line {
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(0,0,0,0.08);
+}
+.ob-theme-dark .ob-tp-line { background: rgba(255,255,255,0.08); }
+.ob-tp-short { width: 60%; }

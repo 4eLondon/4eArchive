@@ -1,0 +1,396 @@
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+    --font-body: 'Times New Roman', Times, Georgia, serif;
+
+    --accent: #c0392b;
+    --accent-hover:#a93226;
+
+    --bg:#ffffff;
+    --bg-2:#f5f5f5;
+
+    --ink:#111111;
+    --ink-2:#1c1c1c;
+    --ink-3:#0d0d0d;
+
+    --border:#e0e0e0;
+    --border-strong:#cccccc;
+
+    --radius: 8px;
+}
+
+html, body {
+    height: 100%;
+    font-family: var(--font-body);
+    color: var(--ink);
+    line-height: 1.6;
+}
+
+a {
+    color: var(--accent);
+    text-decoration: none;
+}
+a:hover { text-decoration: underline; }
+
+/* -------------------- TWO-COLUMN SHELL -------------------- */
+body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 100vh;
+}
+
+/* -------------------- LEFT PANEL -------------------- */
+.auth-left {
+    background-color: #f5f5f5;
+    background-image: url('/WD3_Project_Sem2_MangaWebsite/Project/images/background-3.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    min-height: 100vh;
+    overflow: hidden;
+    border-right: 1px solid var(--border);
+}
+
+.auth-left::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.85);
+    z-index: 0;
+}
+
+.auth-left-kanji {
+    position: absolute;
+    font-family: 'Noto Serif JP', 'Hiragino Mincho ProN', serif;
+    font-weight: 900;
+    font-size: 26rem;
+    color: rgba(0,0,0,0.05);
+    user-select: none;
+    pointer-events: none;
+    line-height: 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+.auth-brand {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    z-index: 2;
+}
+
+.auth-brand-logo {
+    font-size: 4.5rem;
+    font-weight: 800;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+    margin-bottom: 0.2rem;
+}
+
+.auth-brand-logo span { color: var(--accent); }
+
+.auth-brand-tagline {
+    font-size: 0.9rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #484848;
+    margin-bottom: 2rem;
+}
+
+.auth-brand-divider {
+    width: 36px;
+    height: 1px;
+    background: var(--accent);
+    margin: 0 auto 2rem;
+    opacity: 0.6;
+}
+
+.auth-brand-desc {
+    font-size: 1rem;
+    color: var(--ink-3);
+    line-height: 1.85;
+    max-width: 300px;
+}
+
+/* -------------------- RIGHT PANEL -------------------- */
+.auth-content {
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 4rem 5rem;
+    overflow-y: auto;
+    min-height: 100vh;
+}
+
+/* -------------------- FORM (no card) -------------------- */
+#register-form {
+    width: 100%;
+    max-width: 480px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* -------------------- FORM HEADING -------------------- */
+.form-heading {
+    width: 100%;
+    max-width: 480px;
+    margin-bottom: 2rem;
+}
+
+.form-heading h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    margin-bottom: 0.25rem;
+}
+
+.form-heading p {
+    font-size: 0.9rem;
+    color: var(--ink-3);
+}
+
+/* -------------------- LABELS -------------------- */
+label:not(.auth-check):not(.radio-label) {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+    margin-top: 1.1rem;
+    margin-bottom: 0.35rem;
+}
+
+/* -------------------- INPUTS -------------------- */
+input[type="text"],
+input[type="password"],
+input[type="date"] {
+    display: block;
+    width: 100%;
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 10px 14px;
+    font-family: var(--font-body);
+    font-size: 0.98rem;
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="date"]:focus {
+    border-color: var(--border-strong);
+    box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.08);
+    background: var(--bg);
+}
+
+input::placeholder { color: #bbbbbb; }
+
+.input-prefix {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-prefix span {
+    position: absolute;
+    left: 14px;
+    color: var(--ink-3);
+    font-size: 0.98rem;
+    pointer-events: none;
+    user-select: none;
+}
+
+.input-prefix input {
+    padding-left: 28px;
+}
+
+.input-suffix {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-suffix input {
+    padding-right: 60px;
+}
+
+.show-btn {
+    position: absolute;
+    right: 14px;
+    background: none;
+    border: none;
+    color: var(--ink-3);
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    padding: 0;
+    text-transform: uppercase;
+    transition: color 0.2s;
+    width: auto;
+    margin: 0;
+    display: inline;
+}
+
+.show-btn:hover {
+    color: var(--ink);
+}
+
+/* -------------------- STATUS SPANS -------------------- */
+#username-status,
+#email-status {
+    display: block;
+    margin-top: 4px;
+    font-size: 0.8rem;
+    min-height: 1.1em;
+}
+
+/* -------------------- RADIO GROUP -------------------- */
+.radio-group {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    margin-top: 0.4rem;
+}
+
+.radio-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.95rem;
+    color: var(--ink-2);
+    cursor: pointer;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: 0;
+}
+
+input[type="radio"] {
+    accent-color: var(--accent);
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+/* -------------------- CHECKBOX -------------------- */
+.auth-check {
+    display: flex;
+    align-items: flex-start;
+    gap: 5px;
+    font-size: 0.86rem;
+    color: var(--ink-3);
+    margin-top: 1.25rem;
+    line-height: 1.55;
+    cursor: pointer;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: 0;
+}
+
+.auth-check input[type="checkbox"] {
+    accent-color: var(--accent);
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+    margin-top: 3px;
+    cursor: pointer;
+}
+
+/* -------------------- ERROR BOX -------------------- */
+#form-error {
+    border-radius: var(--radius);
+    background: rgba(192, 57, 43, 0.07);
+    border: 1px solid rgba(192, 57, 43, 0.2);
+    color: var(--accent);
+    padding: 10px 14px;
+    font-size: 0.86rem;
+    margin-top: 0.85rem;
+}
+
+/* -------------------- BUTTONS -------------------- */
+button[type="submit"] {
+    display: block;
+    width: 100%;
+    background: var(--accent);
+    color: #ffffff;
+    border: none;
+    border-radius: var(--radius);
+    padding: 12px;
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin-top: 1.5rem;
+    transition: background 0.2s, transform 0.15s;
+}
+
+button[type="submit"]:hover {
+    background: var(--accent-hover);
+    transform: translateY(-1px);
+}
+
+button[type="button"] {
+    display: block;
+    width: 100%;
+    background: none;
+    color: var(--ink-3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 11px;
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin-top: 0.6rem;
+    transition: border-color 0.2s, color 0.2s;
+}
+
+button[type="button"]:hover {
+    border-color: var(--border-strong);
+    color: var(--ink);
+}
+
+/* -------------------- AUTH SWITCH -------------------- */
+.auth-switch {
+    margin-top: 1.25rem;
+    font-size: 0.86rem;
+    color: var(--ink-3);
+    text-align: left;
+    width: 100%;
+    max-width: 480px;
+}
+
+.auth-switch a {
+    color: var(--accent);
+    font-weight: 600;
+}
+
+/* -------------------- RESPONSIVE -------------------- */
+@media (max-width: 768px) {
+    body { grid-template-columns: 1fr; }
+    .auth-left { display: none; }
+    .auth-content { padding: 2.5rem 1.5rem; }
+}
