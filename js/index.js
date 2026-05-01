@@ -349,3 +349,22 @@ function buyNow(bookId, priceUsd) {
     document.getElementById('buy-now-overlay')?.addEventListener('click', closeBuyNowModal);
     document.getElementById('buy-now-cancel')?.addEventListener('click', closeBuyNowModal);
   });
+
+  // In your library popup code, add "Read" button:
+function renderLibraryItem(book) {
+    return `
+      <div class="library-item">
+        <img src="${book.cover}" class="library-item-img" alt="${book.title}">
+        <div class="library-item-info">
+          <div class="library-item-title">${book.title}</div>
+          <div class="library-item-meta">${book.author}</div>
+          <div class="library-item-owned">Owned ✓</div>
+        </div>
+        <div>
+          <a href="/WD3_Project_Sem2_MangaWebsite/Project/pages/reader.php?id=${book.id}" 
+             class="btn-dark" style="padding:6px 12px;font-size:0.75rem;">Read</a>
+          <button class="library-item-remove" onclick="removeFromLibrary(${book.id})">Remove</button>
+        </div>
+      </div>
+    `;
+  }

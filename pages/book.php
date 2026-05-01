@@ -116,6 +116,7 @@
 <div class="toast" id="toast"></div>
 
 <script src="/WD3_Project_Sem2_MangaWebsite/Project/js/books-data.js"></script>
+<script src="/WD3_Project_Sem2_MangaWebsite/Project/js/books-content.js"></script>
 <script src="/WD3_Project_Sem2_MangaWebsite/Project/js/index.js"></script>
 <script>
 // Render book from URL param
@@ -133,6 +134,30 @@ document.addEventListener('DOMContentLoaded', () => {
   document.title = `Yomite — ${book.title}`;
   const price = book.soldOut ? 'Sold Out' : formatPrice(book.price_usd);
   const priceClass = book.soldOut ? 'book-price sold-out' : 'book-price';
+
+  // Build chapters section if content exists
+  const bookContent = (typeof BOOK_CONTENT !== 'undefined') ? BOOK_CONTENT[book.id] : null;
+  let chaptersHTML = '';
+  if (bookContent && bookContent.chapters && bookContent.chapters.length > 0) {
+    const chapterItems = bookContent.chapters.map((ch, i) => `
+      <a class="chapter-row" href="/WD3_Project_Sem2_MangaWebsite/Project/pages/reader.php?id=${book.id}&chapter=${i}">
+        <div class="chapter-row-left">
+          <span class="chapter-num">Ch. ${i + 1}</span>
+          <span class="chapter-title">${ch.title.replace(/^Chapter \d+:\s*/i, '')}</span>
+        </div>
+        <span class="chapter-read-btn">Read →</span>
+      </a>
+    `).join('');
+    chaptersHTML = `
+      <div class="book-chapters-section">
+        <div class="book-chapters-header">
+          <h2 class="book-chapters-title">Chapters</h2>
+          <span class="book-chapters-count">${bookContent.chapters.length} available</span>
+        </div>
+        <div class="chapter-list">${chapterItems}</div>
+      </div>
+    `;
+  }
 
   page.innerHTML = `
     <div class="book-hero">
@@ -158,7 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>`}
       </div>
     </div>
-  `;
+    ${chaptersHTML}`;
 
   // Update price if currency changes
   window.addEventListener('currency-changed', () => {

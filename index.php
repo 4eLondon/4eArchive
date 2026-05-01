@@ -686,21 +686,60 @@
             </svg>
         </button>
         <div class="sample-book">
-            <div class="sample-left">
-                <img class="sample-cover" src="/WD3_Project_Sem2_MangaWebsite/Project/images/heaven-official's-blessing copy.jpg" alt="Heaven Official's Blessing">
-                <div class="sample-badge">Free Sample</div>
-            </div>
             <div class="sample-right">
                 <div class="sample-label">Chapter 1 · Preview</div>
                 <h2 class="sample-title">Heaven Official's Blessing</h2>
                 <p class="sample-author">Mo Xiang Tong Xiu · Vol. 1 of 8</p>
                 <div class="sample-divider"></div>
                 <div class="sample-text">
-                    <p>Eight hundred years ago, Xie Lian was the Crown Prince of the Xianle kingdom — beloved by his people, gifted beyond measure, and destined, it seemed, for eternal glory among the heavens.</p>
-                    <p>He ascended as a martial god at a young age, a feat unheard of in living memory. The heavenly court received him with fanfare. Temples were built in his name. Prayers were offered at his feet.</p>
-                    <p>Then he was banished.</p>
-                    <p>He scraped together enough merit to ascend a second time. He was banished again — within minutes.</p>
-                    <p>Now, eight hundred years later, Xie Lian ascends for a third time — threadbare, forgotten, and regarded as a cosmic joke by gods and demons alike. He has no temple. No followers. No divine power to speak of. What he does have is an unshakeable sense of principle, a rusted sword, and the quiet, stubborn belief that he is still, somehow, meant to help people...</p>
+                    <p>Among all the deities of heaven, there was one famous
+                    laughingstock of the three realms.
+                    Legend has it that eight hundred years ago, there was an ancient
+                    kingdom in the central plains called the Kingdom of Xianle.</p>
+                    <p>The Kingdom of Xianle was a vast and bountiful land. There were
+                    four treasures within it: abundant and handsome beauties, vibrant music and
+                    marvelous literature, gold and gems, and their one infamous crown prince.
+                    What would be the best way to describe this crown prince? Well, he
+                    was a unique man.</p>
+                    <p>He was beloved by the king and the queen, and they doted upon him
+                    exorbitantly. They would often say with pride, “My son will become a great
+                    ruler in the future, and his good name will echo down through history!”
+                    However, the crown prince was not interested in imperial power or
+                    wealth in the mortal world at all.</p>
+                    <p>What he was interested in, in his own words, was:
+                    “I want to save the common people!”
+                    When he was young, the crown prince focused solely on his
+                    cultivation, and there were two short tales that were widely spread of his
+                    time on that path</p>
+                    <p>The first tale took place when he was seventeen years old.
+                    That year, a grand Shangyuan Heavenly Ceremonial Procession took
+                    place in the Kingdom of Xianle.</p>
+                    <p>Although the custom of conducting these divine ceremonies has been
+                    out of fashion for centuries, it is still possible to deduce what a grand,
+                    jubilant occasion it must have been from remnants of ancient books and
+                    oral tradition.
+                    The wondrous Shangyuan Festival, upon the Grand Avenue of Divine
+                    Might.</p>
+                    <p>Seas of people gathered on either side of the grand street, with royals
+                    and nobles talking and laughing in merriment atop the high platforms. The
+                    glorious royal warriors bedecked in armor opened the paths, while maidens
+                    danced elegantly, their fair hands scattering flowers—and who could say
+                    whether the flowers or the maidens were more beautiful? From within the
+                    golden carriage came marvelous music that drifted across the entire
+                    imperial city. And at the rear of the procession was a grand stage pulled by
+                    sixteen white horses in golden bridles.</p>
+                    <p>Upon this towering grand stage stood the God-Pleasing Warrior, the
+                    focus of everyone’s attention.
+                    At the Heavenly Ceremonial Procession, the God-Pleasing Warrior
+                    wore a golden mask. Dressed in glamorous attire and with a sacred sword in
+                    hand, he played the role of the subduer of evil, the number one martial god
+                    for the past thousand years: the Heavenly Emperor, Jun Wu.</p>
+                    <p>It was the greatest of honors to be chosen for the role of the God-
+                    Pleasing Warrior, which was why the selection criteria were exceedingly
+                    strict. Thus, the one chosen that year was that crown prince. People across
+                    the kingdom believed that he would give the most thrilling performance as
+                    the God-Pleasing Warrior.</p>
+                    <p>***</p>
                 </div>
                 <div class="sample-footer">
                     <span class="sample-page">Page 1 of 1 · Sample ends here</span>
