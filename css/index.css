@@ -1452,11 +1452,11 @@ footer .footer-bottom {
   background: var(--bg-2);
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
-  margin-bottom: 2.5rem;
+  margin-bottom: 0;
 }
 .about-inner {
   display: grid;
-  grid-template-columns: 1.4fr 1fr;
+  grid-template-columns: 1fr 1.4fr;
   min-height: 520px;
 }
 .about-visual {
@@ -1529,7 +1529,7 @@ footer .footer-bottom {
 
 .footer-bottom {
   max-width: 1400px; margin: 0 auto;
-  padding-top: 2.25rem; border-top: 1px solid var(--border);
+  padding-top: 2.25rem; padding-bottom: 2.25rem; border-top: 1px solid var(--border);
   display: flex; align-items: center; justify-content: space-between;
   flex-wrap: wrap; gap: 1rem;
   font-size: 0.82rem; color: var(--ink-3);
@@ -2699,10 +2699,9 @@ footer .footer-bottom {
 /* ==================== VIDEO SECTION ==================== */
 .video-section-wrap {
   display: flex;
-  align-items: stretch; /* This keeps them aligned */
+  align-items: flex-start;
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
-  /* Remove min-height - let content dictate height */
 }
 .video-left {
   flex: 1.1;
@@ -2710,11 +2709,16 @@ footer .footer-bottom {
   overflow: hidden;
   position: relative;
   cursor: pointer;
+  aspect-ratio: 16 / 9;
+  align-self: flex-start;
 }
 .video-left video {
   width: 100%;
   height: 100%;
   display: block;
+  object-fit: cover;
+  position: absolute;
+  inset: 0;
   transition: opacity 0.3s ease;
 }
 .video-left::before {
@@ -2827,12 +2831,12 @@ footer .footer-bottom {
   position: relative;
   overflow: hidden;
   background: var(--bg);
-  padding: 64px 56px;
+  padding: 14px 56px;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Center content vertically within available space */
+  justify-content: center;
   gap: 18px;
-  /* Remove fixed height constraints */
+  align-self: stretch;
 }
 .video-kanji {
   position: absolute;

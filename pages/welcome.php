@@ -13,7 +13,9 @@
     </head>
     <body>
 
-    <div class="ob-watermark">読み手</div>
+    <div class="ob-watermark">読</div>
+    <div class="ob-kanji-side left">手</div>
+    <div class="ob-kanji-side right">本</div>
 
     <div class="onboarding">
 
@@ -245,7 +247,7 @@
                         <!-- FREE -->
                         <div class="ob-tier-card" id="ob-card-free">
                             <div class="ob-tier-name">Free</div>
-                            <div class="ob-tier-price">$0<span>/mo</span></div>
+                            <div class="ob-tier-price">$0.00<span>/mo</span></div>
                             <ul class="ob-tier-feats">
                                 <li><span class="ob-feat-y">✦</span> Vol. 1 of rotating titles</li>
                                 <li><span class="ob-feat-y">✦</span> 1 device · No ads</li>
@@ -259,27 +261,27 @@
                         <div class="ob-tier-card ob-tier-featured" id="ob-card-student">
                             <div class="ob-tier-popular">Most Popular</div>
                             <div class="ob-tier-name">Student</div>
-                            <div class="ob-tier-price">$5<span>/mo</span></div>
+                            <div class="ob-tier-price">$4.99<span>/mo</span></div>
                             <ul class="ob-tier-feats">
                                 <li><span class="ob-feat-y">✦</span> Full catalog</li>
                                 <li><span class="ob-feat-y">✦</span> 1 device · No ads</li>
                                 <li><span class="ob-feat-y">✦</span> Early chapter access</li>
                                 <li><span class="ob-feat-n">✕</span> Studio events</li>
                             </ul>
-                            <button class="ob-tier-btn ob-tier-btn--primary" onclick="pickPlan('student')">Subscribe — $5/mo</button>
+                            <button class="ob-tier-btn ob-tier-btn--primary" onclick="pickPlan('student')">Subscribe — $4.99/mo</button>
                         </div>
 
                         <!-- REGULAR -->
                         <div class="ob-tier-card" id="ob-card-regular">
                             <div class="ob-tier-name">Regular</div>
-                            <div class="ob-tier-price">$10<span>/mo</span></div>
+                            <div class="ob-tier-price">$9.99<span>/mo</span></div>
                             <ul class="ob-tier-feats">
                                 <li><span class="ob-feat-y">✦</span> Full catalog</li>
                                 <li><span class="ob-feat-y">✦</span> 3 devices · No ads</li>
                                 <li><span class="ob-feat-y">✦</span> Early chapter access</li>
                                 <li><span class="ob-feat-y">✦</span> Studio events & Q&As</li>
                             </ul>
-                            <button class="ob-tier-btn" onclick="pickPlan('regular')">Subscribe — $10/mo</button>
+                            <button class="ob-tier-btn" onclick="pickPlan('regular')">Subscribe — $9.99/mo</button>
                         </div>
 
                     </div><!-- /.ob-tier-grid -->

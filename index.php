@@ -648,20 +648,7 @@
     <h2 class="video-book-title">Built for readers, <em>by readers.</em></h2>
     <p class="video-book-desc">Yomite is the official digital storefront of Yardiereads — a platform built for manga and book lovers who take their reads seriously. Discover new titles, collect your favourites, and build a library that's entirely yours.</p>
     <p class="video-book-desc">Founded by a team of passionate readers, Yardiereads has been curating stories since day one. From shonen classics to obscure hidden gems, every title on Yomite is handpicked with the community in mind.</p>
-    <div class="video-contact">
-        <a href="mailto:hello@yardiereads.com" class="btn-dark video-contact-btn">
-            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
-            </svg>
-            hello@yardiereads.com
-        </a>
-        <a href="tel:+18761234567" class="btn-line video-contact-btn">
-            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.35 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
-            </svg>
-            +1 (876) 123-4567
-        </a>
-    </div>
+
 </div>
 </div>
 
@@ -698,6 +685,7 @@
         <!-- Footer bottom bar -->
         <div class="footer-bottom">
             <p>© 2026 YardieReads / Yomite. All rights reserved.</p>
+            <p>Contact us at <a href="mailto:hello@yardiereads.com" style="color:inherit;">hello@yardiereads.com</a> or +1 (876) 123-4567</p>
         </div>
     </footer>
 
@@ -1287,5 +1275,143 @@ function pmExecuteChange(){
   });
 })();
 </script>
+<!-- ===== LOGOUT CONFIRMATION MODAL ===== -->
+<div id="logout-modal-overlay" class="logout-overlay">
+  <div class="logout-modal">
+    <button class="logout-modal-close" id="logout-modal-close-btn">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+    <p class="logout-modal-eyebrow">Your session</p>
+    <h2 class="logout-modal-title">Leaving so <em>soon?</em></h2>
+    <p class="logout-modal-sub">Are you sure you want to log out of Yomite?</p>
+    <div class="logout-modal-actions">
+      <button class="logout-cancel-btn" id="logout-cancel-btn">Stay</button>
+      <a href="/WD3_Project_Sem2_MangaWebsite/Project/app/logout.php" class="logout-confirm-btn">Log Out</a>
+    </div>
+  </div>
+</div>
+<style>
+.logout-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(4px);
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.logout-modal {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 48px 44px 44px;
+  width: 100%;
+  max-width: 400px;
+  position: relative;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.18);
+  text-align: center;
+  animation: logoutSlideIn 0.22s ease;
+}
+@keyframes logoutSlideIn {
+  from { opacity: 0; transform: translateY(16px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.logout-modal-close {
+  position: absolute;
+  top: 16px; right: 16px;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--bg-2);
+  color: var(--ink-3);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.logout-modal-close:hover { color: var(--ink); border-color: var(--ink-3); }
+.logout-modal-eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 10px;
+}
+.logout-modal-title {
+  font-family: var(--font-display);
+  font-size: 1.9rem;
+  font-weight: 800;
+  color: var(--ink);
+  letter-spacing: -0.5px;
+  margin: 0 0 10px;
+}
+.logout-modal-title em {
+  font-style: italic;
+  color: var(--accent);
+}
+.logout-modal-sub {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--ink-3);
+  margin: 0 0 32px;
+}
+.logout-modal-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+.logout-cancel-btn {
+  padding: 0.65rem 1.6rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-strong);
+  background: var(--bg-2);
+  color: var(--ink-2);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.logout-cancel-btn:hover { background: var(--bg-3); color: var(--ink); }
+.logout-confirm-btn {
+  padding: 0.65rem 1.6rem;
+  border-radius: 8px;
+  border: none;
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  transition: background 0.15s, transform 0.15s;
+}
+.logout-confirm-btn:hover { background: var(--accent-hover); transform: translateY(-1px); }
+</style>
+<script>
+(function(){
+  document.addEventListener("DOMContentLoaded", function(){
+    var overlay = document.getElementById("logout-modal-overlay");
+    function openModal() { overlay.style.display = "flex"; document.body.style.overflow = "hidden"; }
+    function closeModal() { overlay.style.display = "none"; document.body.style.overflow = ""; }
+    document.querySelectorAll("a.nav-logout-icon").forEach(function(a){
+      a.addEventListener("click", function(e){ e.preventDefault(); openModal(); });
+    });
+    document.getElementById("logout-cancel-btn").addEventListener("click", closeModal);
+    document.getElementById("logout-modal-close-btn").addEventListener("click", closeModal);
+    overlay.addEventListener("click", function(e){ if(e.target === overlay) closeModal(); });
+    document.addEventListener("keydown", function(e){ if(e.key === "Escape") closeModal(); });
+  });
+})();
+</script>
+
+
 </body>
 </html>
