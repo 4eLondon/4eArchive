@@ -52,6 +52,14 @@
         $_SESSION['first_name'] = $db_first_name;
         $_SESSION['last_name'] = $db_last_name;
         $_SESSION['logged_in'] = true;
+
+        // Load plan into session
+        $ps = $conn->prepare("SELECT plan_slug FROM user_subscriptions WHERE user_id = ?");
+        $ps->bind_param("i", $db_id);
+        $ps->execute();
+        $pr = $ps->get_result();
+        $_SESSION['plan'] = ($row = $pr->fetch_assoc()) ? $row['plan_slug'] : 'free';
+        $ps->close();
         $stmt->close();
         $conn->close();
         echo json_encode(['success' => true]);

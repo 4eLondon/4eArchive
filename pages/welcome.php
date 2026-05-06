@@ -26,7 +26,8 @@
                 <div class="ob-dot" onclick="goTo(2)"></div> 
                 <div class="ob-dot" onclick="goTo(3)"></div> 
                 <div class="ob-dot" onclick="goTo(4)"></div>
-                <div class="ob-dot" onclick="goTo(5)"></div> 
+                <div class="ob-dot" onclick="goTo(5)"></div>
+                <div class="ob-dot" onclick="goTo(6)"></div> 
             </div> 
             <button class="ob-skip" onclick="finish()">Skip →</button> </div>
 
@@ -231,6 +232,62 @@
                     </div>
                 </div>
             </div>
+
+            <!-- SLIDE 6: Yomite Pass -->
+            <div class="ob-slide ob-subscribe-slide" id="slide-6">
+                <div class="ob-slide-inner ob-subscribe-inner">
+                    <div class="ob-step-label">One last thing</div>
+                    <h2 class="ob-title">Choose your <span>Yomite Pass.</span></h2>
+                    <p class="ob-desc">Unlock the full catalog with a subscription, or start free — no pressure. You can always upgrade later.</p>
+
+                    <div class="ob-tier-grid">
+
+                        <!-- FREE -->
+                        <div class="ob-tier-card" id="ob-card-free">
+                            <div class="ob-tier-name">Free</div>
+                            <div class="ob-tier-price">$0<span>/mo</span></div>
+                            <ul class="ob-tier-feats">
+                                <li><span class="ob-feat-y">✦</span> Vol. 1 of rotating titles</li>
+                                <li><span class="ob-feat-y">✦</span> 1 device · No ads</li>
+                                <li><span class="ob-feat-n">✕</span> Full catalog</li>
+                                <li><span class="ob-feat-n">✕</span> Early chapters</li>
+                            </ul>
+                            <button class="ob-tier-btn" onclick="pickPlan('free')">Start Free</button>
+                        </div>
+
+                        <!-- STUDENT -->
+                        <div class="ob-tier-card ob-tier-featured" id="ob-card-student">
+                            <div class="ob-tier-popular">Most Popular</div>
+                            <div class="ob-tier-name">Student</div>
+                            <div class="ob-tier-price">$5<span>/mo</span></div>
+                            <ul class="ob-tier-feats">
+                                <li><span class="ob-feat-y">✦</span> Full catalog</li>
+                                <li><span class="ob-feat-y">✦</span> 1 device · No ads</li>
+                                <li><span class="ob-feat-y">✦</span> Early chapter access</li>
+                                <li><span class="ob-feat-n">✕</span> Studio events</li>
+                            </ul>
+                            <button class="ob-tier-btn ob-tier-btn--primary" onclick="pickPlan('student')">Subscribe — $5/mo</button>
+                        </div>
+
+                        <!-- REGULAR -->
+                        <div class="ob-tier-card" id="ob-card-regular">
+                            <div class="ob-tier-name">Regular</div>
+                            <div class="ob-tier-price">$10<span>/mo</span></div>
+                            <ul class="ob-tier-feats">
+                                <li><span class="ob-feat-y">✦</span> Full catalog</li>
+                                <li><span class="ob-feat-y">✦</span> 3 devices · No ads</li>
+                                <li><span class="ob-feat-y">✦</span> Early chapter access</li>
+                                <li><span class="ob-feat-y">✦</span> Studio events & Q&As</li>
+                            </ul>
+                            <button class="ob-tier-btn" onclick="pickPlan('regular')">Subscribe — $10/mo</button>
+                        </div>
+
+                    </div><!-- /.ob-tier-grid -->
+
+                    <button class="ob-not-now" onclick="finish()">Not now — continue with Free →</button>
+                </div>
+            </div>
+
         </div>
 
         <!-- BOTTOM BAR -->

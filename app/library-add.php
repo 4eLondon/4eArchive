@@ -1,6 +1,5 @@
 <?php
     session_start();
-    error_log("SESSION: " . print_r($_SESSION, true));
     header('Content-Type: application/json');
     require_once __DIR__ . '/../db.php';
 
@@ -17,7 +16,7 @@
         exit();
     }
 
-    $stmt = $conn->prepare("INSERT IGNORE INTO library (user_id, book_id) VALUES (?, ?)");
+    $stmt = $conn->prepare("INSERT IGNORE INTO owned_library (user_id, book_id) VALUES (?, ?)");
     $stmt->bind_param("ii", $user_id, $book_id);
     $stmt->execute();
     $affected = $stmt->affected_rows;

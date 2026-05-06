@@ -11,11 +11,11 @@
     $user_id = $_SESSION['id'] ?? $_SESSION['user_id'];
 
     $stmt = $conn->prepare("
-        SELECT b.id, b.title, b.author, b.genre, b.cover_img, l.added_at
-        FROM library l
-        JOIN books b ON l.book_id = b.id
-        WHERE l.user_id = ?
-        ORDER BY l.added_at DESC
+        SELECT b.id, b.title, b.author, b.genre, b.cover_img, o.purchased_at
+        FROM owned_library o
+        JOIN books b ON o.book_id = b.id
+        WHERE o.user_id = ?
+        ORDER BY o.purchased_at DESC
     ");
     $stmt->bind_param("i", $user_id);
     $stmt->execute();

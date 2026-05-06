@@ -1,7 +1,9 @@
 <?php 
     session_start();
 ?>
-
+<?php if (($_SESSION['plan'] ?? 'free') !== 'free'): ?>
+    <div class="full-catalog-section">...</div>
+<?php endif; ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -10,6 +12,7 @@
         <title>Yomite: Home</title>
         <link rel="icon" type="image/x-icon" href="/WD3_Project_Sem2_MangaWebsite/Project/images/website-icon.png">
         <link rel="stylesheet" href="/WD3_Project_Sem2_MangaWebsite/Project/css/index.css">
+    <link rel="stylesheet" href="/WD3_Project_Sem2_MangaWebsite/Project/css/subscribe.css">
         <script>
             // Apply theme before paint to prevent flash
             (function() {
@@ -35,7 +38,7 @@
                 </a>
 
                 <!-- CART -->
-                <a href="/WD3_Project_Sem2_MangaWebsite/Project/pages/cart.php" class="nav-pill-btn nav-pill-btn--accent" id="cart-btn" title="My Cart">
+                <a href="/WD3_Project_Sem2_MangaWebsite/Project/pages/cart.php" class="nav-pill-btn" id="cart-btn" title="My Cart">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
                         <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
@@ -50,6 +53,13 @@
                         <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
                     </svg>
                     Library
+                </a>
+
+                <!-- YOMITE PASS -->
+                <a href="#" class="nav-pill-btn nav-pill-btn--pass" id="pass-nav-btn" title="Yomite Pass">                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 12V22H4V12"/><path d="M22 7H2v5h20V7z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/>
+                    </svg>
+                    Pass
                 </a>
 
                 <span class="nav-divider"></span>
@@ -105,22 +115,28 @@
         </div>
         <div class="hero-marquee">
             <div class="marquee-track">
-                <div class="marquee-item"><strong>Chainsaw Man Vol. 17</strong><span class="marquee-sep">✦</span></div>
+                <div class="marquee-item"><strong>One Piece</strong><span class="marquee-sep">✦</span></div>
+                <div class="marquee-item"><strong>Saiki K</strong><span class="marquee-sep">✦</span></div>
+                <div class="marquee-item"><strong>Dungeon Meshi</strong><span class="marquee-sep">✦</span></div>
+                <div class="marquee-item"><strong>Heaven Official's Blessing</strong><span class="marquee-sep">✦</span></div>
+                <div class="marquee-item"><strong>Jujutsu Kaisen</strong><span class="marquee-sep">✦</span></div>
+                <div class="marquee-item"><strong>The Apothecary Diaries</strong><span class="marquee-sep">✦</span></div>
+                <div class="marquee-item"><strong>Horimiya</strong><span class="marquee-sep">✦</span></div>
+                <div class="marquee-item"><strong>Spy x Family</strong><span class="marquee-sep">✦</span></div>
+                <div class="marquee-item"><strong>Hunter x Hunter</strong><span class="marquee-sep">✦</span></div>
                 <div class="marquee-item"><strong>Frieren: Beyond Journey's End</strong><span class="marquee-sep">✦</span></div>
-                <div class="marquee-item"><strong>Dungeon Meshi Vol. 9</strong><span class="marquee-sep">✦</span></div>
-                <div class="marquee-item"><strong>Oshi no Ko Vol. 6</strong><span class="marquee-sep">✦</span></div>
-                <div class="marquee-item"><strong>Solo Leveling Vol. 8</strong><span class="marquee-sep">✦</span></div>
-                <div class="marquee-item"><strong>Berserk Vol. 42</strong><span class="marquee-sep">✦</span></div>
-                <div class="marquee-item"><strong>Kaiju No. 8 Vol. 5</strong><span class="marquee-sep">✦</span></div>
-                <div class="marquee-item"><strong>Blue Lock Vol. 12</strong><span class="marquee-sep">✦</span></div>
-                <div class="marquee-item"><strong>Chainsaw Man Vol. 17</strong><span class="marquee-sep">✦</span></div>
+                <div class="marquee-item"><strong>Kaguya-Sama: Love is War</strong><span class="marquee-sep">✦</span></div>
+                <div class="marquee-item"><strong>One Piece</strong><span class="marquee-sep">✦</span></div>
+                <div class="marquee-item"><strong>Saiki K</strong><span class="marquee-sep">✦</span></div>
+                <div class="marquee-item"><strong>Dungeon Meshi</strong><span class="marquee-sep">✦</span></div>
+                <div class="marquee-item"><strong>Heaven Official's Blessing</strong><span class="marquee-sep">✦</span></div>
+                <div class="marquee-item"><strong>Jujutsu Kaisen</strong><span class="marquee-sep">✦</span></div>
+                <div class="marquee-item"><strong>The Apothecary Diaries</strong><span class="marquee-sep">✦</span></div>
+                <div class="marquee-item"><strong>Horimiya</strong><span class="marquee-sep">✦</span></div>
+                <div class="marquee-item"><strong>Spy x Family</strong><span class="marquee-sep">✦</span></div>
+                <div class="marquee-item"><strong>Hunter x Hunter</strong><span class="marquee-sep">✦</span></div>
                 <div class="marquee-item"><strong>Frieren: Beyond Journey's End</strong><span class="marquee-sep">✦</span></div>
-                <div class="marquee-item"><strong>Dungeon Meshi Vol. 9</strong><span class="marquee-sep">✦</span></div>
-                <div class="marquee-item"><strong>Oshi no Ko Vol. 6</strong><span class="marquee-sep">✦</span></div>
-                <div class="marquee-item"><strong>Solo Leveling Vol. 8</strong><span class="marquee-sep">✦</span></div>
-                <div class="marquee-item"><strong>Berserk Vol. 42</strong><span class="marquee-sep">✦</span></div>
-                <div class="marquee-item"><strong>Kaiju No. 8 Vol. 5</strong><span class="marquee-sep">✦</span></div>
-                <div class="marquee-item"><strong>Blue Lock Vol. 12</strong><span class="marquee-sep">✦</span></div>
+                <div class="marquee-item"><strong>Kaguya-Sama: Love is War</strong><span class="marquee-sep">✦</span></div>
             </div>
         </div>
     </section>
@@ -137,11 +153,143 @@
                 <h2 class="featured-title">Heaven Official's Blessing</h2>
                 <p class="featured-author">by Mo Xiang Tong Xiu — Vol. 1 of 8</p>
                 <p class="featured-desc">Eight hundred years ago, Xie Lian was the Crown Prince of the Xianle. He was loved by his citizens and was considered the darling of the world. He ascended to the Heavens at a young age; however, due to unfortunate circumstances, was quickly banished back to the mortal realm. Years later, he ascends again – only to be banished again a few minutes later. Now, eight hundred years later, Xie Lian ascends to the Heavens for the third time as the laughingstock among all three realms.</p>
-                <div class="featured-actions">
-                    <button class="btn-dark" onclick="addToCart(9)">Add to Cart</button>
-                            <button class="btn-buy-now" onclick="buyNow(9, 24.99)">Buy Now</button>
-                    <button class="btn-line" onclick="openSample()">Read a Sample</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== NOTEWORTHY THURSDAY ========== -->
+    <div class="nt-wrap">
+
+        <!-- Top wave border -->
+        <svg class="nt-wave" viewBox="0 0 1440 48" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" height="40">
+            <path d="M0,28 C120,8 240,44 360,28 C480,12 600,44 720,28 C840,12 960,44 1080,28 C1200,12 1320,40 1440,28 L1440,48 L0,48 Z" fill="#e8612e" opacity="0.12"/>
+            <path d="M0,34 C120,18 240,46 360,34 C480,22 600,46 720,34 C840,22 960,46 1080,34 C1200,22 1320,44 1440,34 L1440,48 L0,48 Z" fill="#e8612e" opacity="0.18"/>
+            <path d="M0,40 C180,28 360,48 540,40 C720,32 900,48 1080,40 C1260,32 1380,46 1440,40 L1440,48 L0,48 Z" fill="#e8612e" opacity="0.26"/>
+            <rect x="0" y="46" width="1440" height="2" fill="#c1522a" opacity="0.5"/>
+            <circle cx="80" cy="43" r="3" fill="#c1522a" opacity="0.45"/>
+            <circle cx="300" cy="46" r="2" fill="#c1522a" opacity="0.35"/>
+            <circle cx="600" cy="44" r="3" fill="#c1522a" opacity="0.4"/>
+            <circle cx="900" cy="46" r="2" fill="#c1522a" opacity="0.35"/>
+            <circle cx="1200" cy="44" r="3" fill="#c1522a" opacity="0.4"/>
+            <circle cx="1380" cy="43" r="2" fill="#c1522a" opacity="0.45"/>
+        </svg>
+
+        <!-- Blossom decorations -->
+        <svg class="nt-blossom nt-blossom-1" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+            <g fill="#c1522a"><ellipse cx="20" cy="10" rx="5" ry="9" transform="rotate(0 20 20)"/><ellipse cx="20" cy="10" rx="5" ry="9" transform="rotate(72 20 20)"/><ellipse cx="20" cy="10" rx="5" ry="9" transform="rotate(144 20 20)"/><ellipse cx="20" cy="10" rx="5" ry="9" transform="rotate(216 20 20)"/><ellipse cx="20" cy="10" rx="5" ry="9" transform="rotate(288 20 20)"/><circle cx="20" cy="20" r="4" fill="#e8612e"/></g>
+        </svg>
+        <svg class="nt-blossom nt-blossom-2" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+            <g fill="#c1522a"><ellipse cx="20" cy="10" rx="5" ry="9" transform="rotate(0 20 20)"/><ellipse cx="20" cy="10" rx="5" ry="9" transform="rotate(72 20 20)"/><ellipse cx="20" cy="10" rx="5" ry="9" transform="rotate(144 20 20)"/><ellipse cx="20" cy="10" rx="5" ry="9" transform="rotate(216 20 20)"/><ellipse cx="20" cy="10" rx="5" ry="9" transform="rotate(288 20 20)"/><circle cx="20" cy="20" r="4" fill="#e8612e"/></g>
+        </svg>
+        <svg class="nt-blossom nt-blossom-3" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+            <g fill="#c1522a"><ellipse cx="20" cy="10" rx="5" ry="9" transform="rotate(0 20 20)"/><ellipse cx="20" cy="10" rx="5" ry="9" transform="rotate(72 20 20)"/><ellipse cx="20" cy="10" rx="5" ry="9" transform="rotate(144 20 20)"/><ellipse cx="20" cy="10" rx="5" ry="9" transform="rotate(216 20 20)"/><ellipse cx="20" cy="10" rx="5" ry="9" transform="rotate(288 20 20)"/><circle cx="20" cy="20" r="4" fill="#e8612e"/></g>
+        </svg>
+        <svg class="nt-blossom nt-blossom-4" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+            <g fill="#c1522a"><ellipse cx="20" cy="10" rx="5" ry="9" transform="rotate(0 20 20)"/><ellipse cx="20" cy="10" rx="5" ry="9" transform="rotate(72 20 20)"/><ellipse cx="20" cy="10" rx="5" ry="9" transform="rotate(144 20 20)"/><ellipse cx="20" cy="10" rx="5" ry="9" transform="rotate(216 20 20)"/><ellipse cx="20" cy="10" rx="5" ry="9" transform="rotate(288 20 20)"/><circle cx="20" cy="20" r="4" fill="#e8612e"/></g>
+        </svg>
+
+        <div class="nt-inner">
+            <!-- Header -->
+            <div class="nt-header">
+                <p class="nt-eyebrow">Every Thursday</p>
+                <h2 class="nt-title">Noteworthy <em>Thursday</em> Sale</h2>
+                <p class="nt-subtitle">This week's discounted picks — refreshes every Thursday at midnight</p>
+                <p class="nt-description">Every Thursday we hand-pick a fresh set of titles and slash the prices — just for the day. From action-packed shonen to heartfelt slice-of-life, Noteworthy Thursdays is your weekly chance to grab standout manga at serious discounts before the deals disappear at midnight. New picks, every week, no repeats.</p>
+            </div>
+
+            <!-- Book row -->
+            <div class="nt-book-row">
+
+                <div class="nt-book-card">
+                    <div class="nt-book-cover">
+                        <img src="/WD3_Project_Sem2_MangaWebsite/Project/images/spy x family.jpg" alt="Spy x Family">
+                    </div>
                 </div>
+
+                <div class="nt-book-card">
+                    <div class="nt-book-cover">
+                        <img src="/WD3_Project_Sem2_MangaWebsite/Project/images/love is war.jpg" alt="Love is war">
+                    </div>
+                </div>
+
+                <div class="nt-book-card">
+                    <div class="nt-book-cover">
+                        <img src="/WD3_Project_Sem2_MangaWebsite/Project/images/demon slayer.jpg" alt="Demon Slayer">
+                    </div>
+                </div>
+
+                <div class="nt-book-card">
+                    <div class="nt-book-cover">
+                        <img src="/WD3_Project_Sem2_MangaWebsite/Project/images/one piece.png" alt="One Piece">
+                    </div>
+                </div>
+
+                <div class="nt-book-card">
+                    <div class="nt-book-cover">
+                        <img src="/WD3_Project_Sem2_MangaWebsite/Project/images/jjk.png" alt="JJK">
+                    </div>
+                </div>
+
+            </div><!-- /.nt-book-row -->
+
+            <!-- Countdown timer -->
+            <div class="nt-timer">
+                <span class="nt-timer-label">Resets in</span>
+                <div class="nt-timer-blocks">
+                    <div class="nt-timer-unit">
+                        <span class="nt-timer-num" id="nt-h">--</span>
+                        <span class="nt-timer-sub">hrs</span>
+                    </div>
+                    <span class="nt-timer-sep">:</span>
+                    <div class="nt-timer-unit">
+                        <span class="nt-timer-num" id="nt-m">--</span>
+                        <span class="nt-timer-sub">min</span>
+                    </div>
+                    <span class="nt-timer-sep">:</span>
+                    <div class="nt-timer-unit">
+                        <span class="nt-timer-num" id="nt-s">--</span>
+                        <span class="nt-timer-sub">sec</span>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- /.nt-inner -->
+
+        <!-- Bottom wave border -->
+        <svg class="nt-wave" viewBox="0 0 1440 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" height="32">
+            <path d="M0,12 C120,28 240,4 360,12 C480,20 600,4 720,12 C840,20 960,4 1080,12 C1200,20 1320,6 1440,12 L1440,0 L0,0 Z" fill="#e8612e" opacity="0.12"/>
+            <path d="M0,8 C180,20 360,2 540,8 C720,14 900,0 1080,8 C1260,16 1380,4 1440,8 L1440,0 L0,0 Z" fill="#e8612e" opacity="0.2"/>
+            <rect x="0" y="0" width="1440" height="2" fill="#c1522a" opacity="0.45"/>
+            <circle cx="200" cy="6" r="2.5" fill="#c1522a" opacity="0.4"/>
+            <circle cx="550" cy="4" r="2" fill="#c1522a" opacity="0.35"/>
+            <circle cx="900" cy="6" r="2.5" fill="#c1522a" opacity="0.4"/>
+            <circle cx="1250" cy="4" r="2" fill="#c1522a" opacity="0.35"/>
+        </svg>
+
+    </div><!-- /.nt-wrap -->
+
+    <!-- ========== SEARCH + FILTER BAR ========== -->
+    <div class="sfbar-wrap">
+        <div class="sfbar-inner">
+            <div class="sfbar-search-wrap" id="sfbar-search-wrap">
+                <svg class="sfbar-search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input type="text" id="sfbar-input" class="sfbar-input" placeholder="Search catalogue…" autocomplete="off">
+                <div id="sfbar-dropdown" class="sfbar-dropdown"></div>
+            </div>
+            <div class="sfbar-filters" id="sfbar-filters">
+                <button class="sfbar-chip active" data-genre="all">All</button>
+                <button class="sfbar-chip" data-genre="Action">Action</button>
+                <button class="sfbar-chip" data-genre="Adventure">Adventure</button>
+                <button class="sfbar-chip" data-genre="Comedy">Comedy</button>
+                <button class="sfbar-chip" data-genre="Cooking">Cooking</button>
+                <button class="sfbar-chip" data-genre="Danmei">Danmei</button>
+                <button class="sfbar-chip" data-genre="Drama">Drama</button>
+                <button class="sfbar-chip" data-genre="Fantasy">Fantasy</button>
+                <button class="sfbar-chip" data-genre="High Fantasy">High Fantasy</button>
+                <button class="sfbar-chip" data-genre="Isekai">Isekai</button>
+                <button class="sfbar-chip" data-genre="Mystery">Mystery</button>
+                <button class="sfbar-chip" data-genre="Romance">Romance</button>
+                <button class="sfbar-chip" data-genre="Xianxia">Xianxia</button>
             </div>
         </div>
     </div>
@@ -149,21 +297,18 @@
     <!-- ========== NEW RELEASES ========== -->
     <div style="background:var(--bg);">
         <div class="section">
-            <div class="section-head">
-                <div>
-                    <h2 class="section-title">New <em>Releases</em></h2>
-                </div>
-            </div>
             <div class="product-grid">
 
-                <div class="product-card">
+                <div class="product-card" data-genres="Isekai,Comedy">
                     <div class="product-cover">
                         <a href="/WD3_Project_Sem2_MangaWebsite/Project/pages/book.php?id=1">
                             <img src="/WD3_Project_Sem2_MangaWebsite/Project/images/The-Greatest-Estate-Developer-1 copy.png" alt="The Greatest Estate Developer">
                         </a>
                         <div class="cover-actions">
-                            <button class="btn-dark" onclick="addToCart(1)">Add to Cart</button>
-                            <button class="btn-buy-now" onclick="buyNow(1, 9.99)">Buy Now</button>
+                            <a class="btn-dark cover-read-btn" href="/WD3_Project_Sem2_MangaWebsite/Project/pages/book.php?id=1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                                Read Free
+                            </a>
                             <button class="wish-btn" data-book-id="1" onclick="toggleWishlist(1, this)">♡</button>
                         </div>
                     </div>
@@ -171,17 +316,20 @@
                         <p class="product-series">Isekai, Comedy</p>
                         <h3 class="product-title"><a href="/WD3_Project_Sem2_MangaWebsite/Project/pages/book.php?id=1" class="product-title-link">The Greatest Estate Developer</a></h3>
                         <p class="product-author">BK_Moon</p>
-                        <p class="product-price" data-price-usd="9.99">loading...</p>
+                        <div class="product-price-slot" data-book-id="1"></div>
                     </div>
                 </div>
 
-                <div class="product-card">
+                <div class="product-card" data-genres="Action,Fantasy">
                     <div class="product-cover">
                         <a href="/WD3_Project_Sem2_MangaWebsite/Project/pages/book.php?id=2">
                             <img src="/WD3_Project_Sem2_MangaWebsite/Project/images/solo-leveling.jpg" alt="Solo Leveling">
                         </a>
                         <div class="cover-actions">
-                            <button class="btn-dark" onclick="addToCart(2)">Add to Cart</button>
+                            <a class="btn-dark cover-read-btn" href="/WD3_Project_Sem2_MangaWebsite/Project/pages/book.php?id=2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                                Read Free
+                            </a>
                             <button class="wish-btn" data-book-id="2" onclick="toggleWishlist(2, this)">♡</button>
                         </div>
                     </div>
@@ -189,18 +337,20 @@
                         <p class="product-series">Action, Fantasy</p>
                         <h3 class="product-title"><a href="/WD3_Project_Sem2_MangaWebsite/Project/pages/book.php?id=2" class="product-title-link">Solo Leveling</a></h3>
                         <p class="product-author">Chugong</p>
-                        <p class="product-price sold-out-price">SOLD OUT</p>
+                        <div class="product-price-slot" data-book-id="2"></div>
                     </div>
                 </div>
 
-                <div class="product-card">
+                <div class="product-card" data-genres="Mystery,Romance">
                     <div class="product-cover">
                         <a href="/WD3_Project_Sem2_MangaWebsite/Project/pages/book.php?id=3">
                             <img src="/WD3_Project_Sem2_MangaWebsite/Project/images/apothecary-diares.jpg" alt="The Apothecary Diaries">
                         </a>
                         <div class="cover-actions">
-                            <button class="btn-dark" onclick="addToCart(3)">Add to Cart</button>
-                            <button class="btn-buy-now" onclick="buyNow(3, 13.99)">Buy Now</button>
+                            <a class="btn-dark cover-read-btn" href="/WD3_Project_Sem2_MangaWebsite/Project/pages/book.php?id=3">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                                Read Free
+                            </a>
                             <button class="wish-btn" data-book-id="3" onclick="toggleWishlist(3, this)">♡</button>
                         </div>
                     </div>
@@ -208,18 +358,20 @@
                         <p class="product-series">Mystery, Romance</p>
                         <h3 class="product-title"><a href="/WD3_Project_Sem2_MangaWebsite/Project/pages/book.php?id=3" class="product-title-link">The Apothecary Diaries</a></h3>
                         <p class="product-author">Hyūganatsu</p>
-                        <p class="product-price" data-price-usd="13.99">loading...</p>
+                        <div class="product-price-slot" data-book-id="3"></div>
                     </div>
                 </div>
 
-                <div class="product-card">
+                <div class="product-card" data-genres="High Fantasy">
                     <div class="product-cover">
                         <a href="/WD3_Project_Sem2_MangaWebsite/Project/pages/book.php?id=4">
                             <img src="/WD3_Project_Sem2_MangaWebsite/Project/images/the-beginning-after-the-end-31381.jpg" alt="The Beginning After The End">
                         </a>
                         <div class="cover-actions">
-                            <button class="btn-dark" onclick="addToCart(4)">Add to Cart</button>
-                            <button class="btn-buy-now" onclick="buyNow(4, 14.99)">Buy Now</button>
+                            <a class="btn-dark cover-read-btn" href="/WD3_Project_Sem2_MangaWebsite/Project/pages/book.php?id=4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                                Read Free
+                            </a>
                             <button class="wish-btn" data-book-id="4" onclick="toggleWishlist(4, this)">♡</button>
                         </div>
                     </div>
@@ -227,18 +379,20 @@
                         <p class="product-series">High Fantasy</p>
                         <h3 class="product-title"><a href="/WD3_Project_Sem2_MangaWebsite/Project/pages/book.php?id=4" class="product-title-link">The Beginning After The End</a></h3>
                         <p class="product-author">TurtleMe</p>
-                        <p class="product-price" data-price-usd="14.99">loading...</p>
+                        <div class="product-price-slot" data-book-id="4"></div>
                     </div>
                 </div>
 
-                <div class="product-card">
+                <div class="product-card" data-genres="Adventure,Cooking">
                     <div class="product-cover">
                         <a href="/WD3_Project_Sem2_MangaWebsite/Project/pages/book.php?id=5">
                             <img src="/WD3_Project_Sem2_MangaWebsite/Project/images/9781975367985_manga-delicious-in-dungeon-manga-volume-12-primary.jpg" alt="Delicious in Dungeon">
                         </a>
                         <div class="cover-actions">
-                            <button class="btn-dark" onclick="addToCart(5)">Add to Cart</button>
-                            <button class="btn-buy-now" onclick="buyNow(5, 6.99)">Buy Now</button>
+                            <a class="btn-dark cover-read-btn" href="/WD3_Project_Sem2_MangaWebsite/Project/pages/book.php?id=5">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                                Read Free
+                            </a>
                             <button class="wish-btn" data-book-id="5" onclick="toggleWishlist(5, this)">♡</button>
                         </div>
                     </div>
@@ -246,18 +400,20 @@
                         <p class="product-series">Adventure, Cooking</p>
                         <h3 class="product-title"><a href="/WD3_Project_Sem2_MangaWebsite/Project/pages/book.php?id=5" class="product-title-link">Delicious in Dungeon</a></h3>
                         <p class="product-author">Ryoko Kui</p>
-                        <p class="product-price" data-price-usd="6.99">loading...</p>
+                        <div class="product-price-slot" data-book-id="5"></div>
                     </div>
                 </div>
 
-                <div class="product-card">
+                <div class="product-card" data-genres="Action,Fantasy">
                     <div class="product-cover">
                         <a href="/WD3_Project_Sem2_MangaWebsite/Project/pages/book.php?id=6">
                             <img src="/WD3_Project_Sem2_MangaWebsite/Project/images/omniscient-readers-viewpoint-2.jpeg" alt="Omniscient Reader's Viewpoint">
                         </a>
                         <div class="cover-actions">
-                            <button class="btn-dark" onclick="addToCart(6)">Add to Cart</button>
-                            <button class="btn-buy-now" onclick="buyNow(6, 11.99)">Buy Now</button>
+                            <a class="btn-dark cover-read-btn" href="/WD3_Project_Sem2_MangaWebsite/Project/pages/book.php?id=6">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                                Read Free
+                            </a>
                             <button class="wish-btn" data-book-id="6" onclick="toggleWishlist(6, this)">♡</button>
                         </div>
                     </div>
@@ -265,18 +421,20 @@
                         <p class="product-series">Action, Fantasy</p>
                         <h3 class="product-title"><a href="/WD3_Project_Sem2_MangaWebsite/Project/pages/book.php?id=6" class="product-title-link">Omniscient Reader's Viewpoint</a></h3>
                         <p class="product-author">Sing Shong</p>
-                        <p class="product-price" data-price-usd="11.99">loading...</p>
+                        <div class="product-price-slot" data-book-id="6"></div>
                     </div>
                 </div>
 
-                <div class="product-card">
+                <div class="product-card" data-genres="Action,Fantasy">
                     <div class="product-cover">
                         <a href="/WD3_Project_Sem2_MangaWebsite/Project/pages/book.php?id=7">
                             <img src="/WD3_Project_Sem2_MangaWebsite/Project/images/eleceed.jpg" alt="Eleceed">
                         </a>
                         <div class="cover-actions">
-                            <button class="btn-dark" onclick="addToCart(7)">Add to Cart</button>
-                            <button class="btn-buy-now" onclick="buyNow(7, 14.99)">Buy Now</button>
+                            <a class="btn-dark cover-read-btn" href="/WD3_Project_Sem2_MangaWebsite/Project/pages/book.php?id=7">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                                Read Free
+                            </a>
                             <button class="wish-btn" data-book-id="7" onclick="toggleWishlist(7, this)">♡</button>
                         </div>
                     </div>
@@ -284,18 +442,20 @@
                         <p class="product-series">Action, Fantasy</p>
                         <h3 class="product-title"><a href="/WD3_Project_Sem2_MangaWebsite/Project/pages/book.php?id=7" class="product-title-link">Eleceed</a></h3>
                         <p class="product-author">Son Je-ho</p>
-                        <p class="product-price" data-price-usd="14.99">loading...</p>
+                        <div class="product-price-slot" data-book-id="7"></div>
                     </div>
                 </div>
 
-                <div class="product-card">
+                <div class="product-card" data-genres="Fantasy,Adventure">
                     <div class="product-cover">
                         <a href="/WD3_Project_Sem2_MangaWebsite/Project/pages/book.php?id=8">
                             <img src="/WD3_Project_Sem2_MangaWebsite/Project/images/eternally-regressing-knight.webp" alt="Eternally Regressing Knight">
                         </a>
                         <div class="cover-actions">
-                            <button class="btn-dark" onclick="addToCart(8)">Add to Cart</button>
-                            <button class="btn-buy-now" onclick="buyNow(8, 11.99)">Buy Now</button>
+                            <a class="btn-dark cover-read-btn" href="/WD3_Project_Sem2_MangaWebsite/Project/pages/book.php?id=8">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                                Read Free
+                            </a>
                             <button class="wish-btn" data-book-id="8" onclick="toggleWishlist(8, this)">♡</button>
                         </div>
                     </div>
@@ -303,18 +463,20 @@
                         <p class="product-series">Fantasy, Adventure</p>
                         <h3 class="product-title"><a href="/WD3_Project_Sem2_MangaWebsite/Project/pages/book.php?id=8" class="product-title-link">Eternally Regressing Knight</a></h3>
                         <p class="product-author">Lee Hyunmin</p>
-                        <p class="product-price" data-price-usd="11.99">loading...</p>
+                        <div class="product-price-slot" data-book-id="8"></div>
                     </div>
                 </div>
 
-                <div class="product-card">
+                <div class="product-card" data-genres="Xianxia">
                     <div class="product-cover">
                         <a href="/WD3_Project_Sem2_MangaWebsite/Project/pages/book.php?id=9">
                             <img src="/WD3_Project_Sem2_MangaWebsite/Project/images/heaven-official's-blessing.jpg" alt="Heaven Official's Blessing">
                         </a>
                         <div class="cover-actions">
-                            <button class="btn-dark" onclick="addToCart(9)">Add to Cart</button>
-                            <button class="btn-buy-now" onclick="buyNow(9, 24.99)">Buy Now</button>
+                            <a class="btn-dark cover-read-btn" href="/WD3_Project_Sem2_MangaWebsite/Project/pages/book.php?id=9">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                                Read Free
+                            </a>
                             <button class="wish-btn" data-book-id="9" onclick="toggleWishlist(9, this)">♡</button>
                         </div>
                     </div>
@@ -322,18 +484,20 @@
                         <p class="product-series">Xianxia</p>
                         <h3 class="product-title"><a href="/WD3_Project_Sem2_MangaWebsite/Project/pages/book.php?id=9" class="product-title-link">Heaven Official's Blessing</a></h3>
                         <p class="product-author">Mo Xiang Tong Xiu</p>
-                        <p class="product-price" data-price-usd="24.99">loading...</p>
+                        <div class="product-price-slot" data-book-id="9"></div>
                     </div>
                 </div>
 
-                <div class="product-card">
+                <div class="product-card" data-genres="Xianxia,Danmei">
                     <div class="product-cover">
                         <a href="/WD3_Project_Sem2_MangaWebsite/Project/pages/book.php?id=10">
                             <img src="/WD3_Project_Sem2_MangaWebsite/Project/images/grandmaster-of-demon-cultivation.jpg" alt="Grandmaster of Demon Cultivation">
                         </a>
                         <div class="cover-actions">
-                            <button class="btn-dark" onclick="addToCart(10)">Add to Cart</button>
-                            <button class="btn-buy-now" onclick="buyNow(10, 19.99)">Buy Now</button>
+                            <a class="btn-dark cover-read-btn" href="/WD3_Project_Sem2_MangaWebsite/Project/pages/book.php?id=10">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                                Read Free
+                            </a>
                             <button class="wish-btn" data-book-id="10" onclick="toggleWishlist(10, this)">♡</button>
                         </div>
                     </div>
@@ -341,16 +505,18 @@
                         <p class="product-series">Xianxia, Danmei</p>
                         <h3 class="product-title"><a href="/WD3_Project_Sem2_MangaWebsite/Project/pages/book.php?id=10" class="product-title-link">Grandmaster of Demon Cultivation</a></h3>
                         <p class="product-author">Mo Xiang Tong Xiu</p>
-                        <p class="product-price" data-price-usd="19.99">loading...</p>
+                        <div class="product-price-slot" data-book-id="10"></div>
                     </div>
                 </div>
 
-                <div class="product-card">
+                <div class="product-card" data-genres="Adventure,Fantasy">
                     <div class="product-cover">
                         <img src="/WD3_Project_Sem2_MangaWebsite/Project/images/manga-frieren.jpeg" alt="Frieren">
                         <div class="cover-actions">
-                            <button class="btn-dark" onclick="addToCart(11)">Add to Cart</button>
-                            <button class="btn-buy-now" onclick="buyNow(11, 13.99)">Buy Now</button>
+                            <a class="btn-dark cover-read-btn" href="/WD3_Project_Sem2_MangaWebsite/Project/pages/book.php?id=11">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                                Read Free
+                            </a>
                             <button class="wish-btn" data-book-id="11" onclick="toggleWishlist(11, this)">♡</button>
                         </div>
                     </div>
@@ -358,18 +524,20 @@
                         <p class="product-series">Adventure, Fantasy</p>
                         <h3 class="product-title"><a href="/WD3_Project_Sem2_MangaWebsite/Project/pages/book.php?id=11" class="product-title-link">Frieren: Beyond Journey's End</a></h3>
                         <p class="product-author">Kanehito Yamada</p>
-                        <p class="product-price" data-price-usd="13.99">loading...</p>
+                        <div class="product-price-slot" data-book-id="11"></div>
                     </div>
                 </div>
 
-                <div class="product-card">
+                <div class="product-card" data-genres="Adventure,Romance">
                     <div class="product-cover">
                         <a href="/WD3_Project_Sem2_MangaWebsite/Project/pages/book.php?id=12">
                             <img src="/WD3_Project_Sem2_MangaWebsite/Project/images/yona-of-the-dawn-6725.jpg" alt="Yona of the Dawn">
                         </a>
                         <div class="cover-actions">
-                            <button class="btn-dark" onclick="addToCart(12)">Add to Cart</button>
-                            <button class="btn-buy-now" onclick="buyNow(12, 15.99)">Buy Now</button>
+                            <a class="btn-dark cover-read-btn" href="/WD3_Project_Sem2_MangaWebsite/Project/pages/book.php?id=12">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                                Read Free
+                            </a>
                             <button class="wish-btn" data-book-id="12" onclick="toggleWishlist(12, this)">♡</button>
                         </div>
                     </div>
@@ -377,18 +545,20 @@
                         <p class="product-series">Adventure, Romance</p>
                         <h3 class="product-title"><a href="/WD3_Project_Sem2_MangaWebsite/Project/pages/book.php?id=12" class="product-title-link">Yona of the Dawn</a></h3>
                         <p class="product-author">Mizuho Kusanagi</p>
-                        <p class="product-price" data-price-usd="15.99">loading...</p>
+                        <div class="product-price-slot" data-book-id="12"></div>
                     </div>
                 </div>
 
-                <div class="product-card">
+                <div class="product-card" data-genres="Romance">
                     <div class="product-cover">
                         <a href="/WD3_Project_Sem2_MangaWebsite/Project/pages/book.php?id=13">
                             <img src="/WD3_Project_Sem2_MangaWebsite/Project/images/Snow-White-with-the-Red-Hair-1-Cover.png" alt="Snow White with the Red Hair">
                         </a>
                         <div class="cover-actions">
-                            <button class="btn-dark" onclick="addToCart(13)">Add to Cart</button>
-                            <button class="btn-buy-now" onclick="buyNow(13, 11.99)">Buy Now</button>
+                            <a class="btn-dark cover-read-btn" href="/WD3_Project_Sem2_MangaWebsite/Project/pages/book.php?id=13">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                                Read Free
+                            </a>
                             <button class="wish-btn" data-book-id="13" onclick="toggleWishlist(13, this)">♡</button>
                         </div>
                     </div>
@@ -396,18 +566,20 @@
                         <p class="product-series">Romance</p>
                         <h3 class="product-title"><a href="/WD3_Project_Sem2_MangaWebsite/Project/pages/book.php?id=13" class="product-title-link">Snow White with the Red Hair</a></h3>
                         <p class="product-author">Sorata Akiduki</p>
-                        <p class="product-price" data-price-usd="11.99">loading...</p>
+                        <div class="product-price-slot" data-book-id="13"></div>
                     </div>
                 </div>
 
-                <div class="product-card">
+                <div class="product-card" data-genres="Romance">
                     <div class="product-cover">
                         <a href="/WD3_Project_Sem2_MangaWebsite/Project/pages/book.php?id=14">
                             <img src="/WD3_Project_Sem2_MangaWebsite/Project/images/horimiyajpg.jpg" alt="Horimiya">
                         </a>
                         <div class="cover-actions">
-                            <button class="btn-dark" onclick="addToCart(14)">Add to Cart</button>
-                            <button class="btn-buy-now" onclick="buyNow(14, 11.99)">Buy Now</button>
+                            <a class="btn-dark cover-read-btn" href="/WD3_Project_Sem2_MangaWebsite/Project/pages/book.php?id=14">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                                Read Free
+                            </a>
                             <button class="wish-btn" data-book-id="14" onclick="toggleWishlist(14, this)">♡</button>
                         </div>
                     </div>
@@ -415,18 +587,20 @@
                         <p class="product-series">Romance</p>
                         <h3 class="product-title"><a href="/WD3_Project_Sem2_MangaWebsite/Project/pages/book.php?id=14" class="product-title-link">Horimiya</a></h3>
                         <p class="product-author">HERO, Daisuke Hagiwara</p>
-                        <p class="product-price" data-price-usd="11.99">loading...</p>
+                        <div class="product-price-slot" data-book-id="14"></div>
                     </div>
                 </div>
 
-                <div class="product-card">
+                <div class="product-card" data-genres="Drama,Romance">
                     <div class="product-cover">
                         <a href="/WD3_Project_Sem2_MangaWebsite/Project/pages/book.php?id=15">
                             <img src="/WD3_Project_Sem2_MangaWebsite/Project/images/kill-the-villainess-manhwa.jpg" alt="Kill the Villainess">
                         </a>
                         <div class="cover-actions">
-                            <button class="btn-dark" onclick="addToCart(15)">Add to Cart</button>
-                            <button class="btn-buy-now" onclick="buyNow(15, 11.99)">Buy Now</button>
+                            <a class="btn-dark cover-read-btn" href="/WD3_Project_Sem2_MangaWebsite/Project/pages/book.php?id=15">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                                Read Free
+                            </a>
                             <button class="wish-btn" data-book-id="15" onclick="toggleWishlist(15, this)">♡</button>
                         </div>
                     </div>
@@ -434,7 +608,7 @@
                         <p class="product-series">Drama, Romance</p>
                         <h3 class="product-title"><a href="/WD3_Project_Sem2_MangaWebsite/Project/pages/book.php?id=15" class="product-title-link">Kill the Villainess</a></h3>
                         <p class="product-author">Haegi, Your April</p>
-                        <p class="product-price" data-price-usd="11.99">loading...</p>
+                        <div class="product-price-slot" data-book-id="15"></div>
                     </div>
                 </div>
 
@@ -447,7 +621,7 @@
     <div class="video-left">
         <video
             id="feature-video"
-            src="/WD3_Project_Sem2_MangaWebsite/Project/images/CharacterDemo.mp4"
+            src="/WD3_Project_Sem2_MangaWebsite/Project/images/YOMITE.mp4"
             muted
             loop
             playsinline
@@ -504,53 +678,24 @@
         </div>
     </div>
 
-    <!-- ========== FOOTER ========== -->
+    <!-- ========== ABOUT / FOOTER ========== -->
     <footer>
-        <div class="footer-grid">
-            <div>
-                <div class="footer-logo">Yomite<span>.</span></div>
-                <p class="footer-slogan">Ink hits different here.</p>
-                <p class="footer-about">An e-commerce platform for manga, light novels, and books — physical and digital. Built for readers, by readers.</p>
-                <div class="footer-socials">
-                    <a href="#" class="soc-btn">𝕏</a>
-                    <a href="#" class="soc-btn">IG</a>
-                    <a href="#" class="soc-btn">YT</a>
-                    <a href="#" class="soc-btn">DC</a>
+        <!-- About Section -->
+        <div class="about-wrap">
+            <div class="about-inner">
+                <div class="about-content">
+                    <p class="about-tag">Manager's Message</p>
+                    <h2 class="about-title">A Word From <em>Our Team</em></h2>
+                    <p class="about-desc">Welcome to Yomite — a place built out of a genuine love for manga, light novels and the stories that stay with you long after the last page. We started this platform because we believed readers deserved better: better selection, better prices and a space that actually feels like it was made for fans. Whether you're chasing the next volume of a beloved series or discovering something new, we're glad you're here. Every title we carry is one we'd recommend to a friend — and that's a standard we'll never drop.</p>
+                    <p class="about-signature">— Cylke Smith, Manager</p>
+                </div>
+                <div class="about-visual">
+                    <img src="/WD3_Project_Sem2_MangaWebsite/Project/images/kaguya-sama.png" alt="Manager" class="about-img">
                 </div>
             </div>
-            <div>
-                <p class="footer-col-title">Shop</p>
-                <ul class="footer-links">
-                    <li><a href="#">New Releases</a></li>
-                    <li><a href="#">Trending</a></li>
-                    <li><a href="#">Collector Editions</a></li>
-                    <li><a href="#">Coming Soon</a></li>
-                    <li><a href="#">Staff Picks</a></li>
-                    <li><a href="#">Browse All</a></li>
-                </ul>
-            </div>
-            <div>
-                <p class="footer-col-title">Help</p>
-                <ul class="footer-links">
-                    <li><a href="#">My Library</a></li>
-                    <li><a href="#">Orders & Shipping</a></li>
-                    <li><a href="#">Manage Subscription</a></li>
-                    <li><a href="#">FAQ</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                </ul>
-            </div>
-            <div>
-                <p class="footer-col-title">Company</p>
-                <ul class="footer-links">
-                    <li><a href="#">About Yomite</a></li>
-                    <li><a href="#">Publisher Partners</a></li>
-                    <li><a href="#">Affiliate Program</a></li>
-                    <li><a href="#">Blog</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Terms of Service</a></li>
-                </ul>
-            </div>
         </div>
+
+        <!-- Footer bottom bar -->
         <div class="footer-bottom">
             <p>© 2026 YardieReads / Yomite. All rights reserved.</p>
         </div>
@@ -568,7 +713,13 @@
         </div>
         <div class="sp-body">
             <div class="sp-section">
-                <div class="sp-section-label">Profile</div>
+                        <div class="sp-plan-row" id="sp-plan-row">
+                <div class="sp-plan-info">
+                    <span class="sp-plan-label">Your plan</span>
+                    <span class="sp-plan-badge" id="sp-plan-badge">Loading…</span>
+                </div>
+            </div>
+
                 <div class="sp-two-col">
                     <div class="sp-field">
                         <div class="sp-field-label">Display name</div>
@@ -613,21 +764,57 @@
     </div>
 
     <!-- ========== LIBRARY POPUP (owned) ========== -->
-    <div class="library-popup" id="library-popup">
-        <div class="library-popup-header">
-            <span class="library-popup-title">
-                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:6px;">
-                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-                </svg>My Library
-            </span>
-            <button class="library-popup-close" onclick="closeLibraryPanel()">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
-                </svg>
-            </button>
-        </div>
-        <div class="library-popup-body" id="library-body">
-            <div class="popup-empty">Your library is empty.</div>
+    <!-- ========== LIBRARY FULL-PAGE OVERLAY ========== -->
+    <div class="library-page" id="library-popup">
+        <div class="library-page-inner">
+            <!-- Header -->
+            <div class="library-page-header">
+                <div class="library-page-header-left">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                    </svg>
+                    <div>
+                        <h1 class="library-page-title">My Library</h1>
+                        <p class="library-page-subtitle" id="lib-subtitle">Your owned books</p>
+                    </div>
+                </div>
+                <button class="library-page-close" onclick="closeLibraryPanel()" aria-label="Close library">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Controls: search + filters -->
+            <div class="library-controls">
+                <div class="library-search-wrap">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="library-search-icon">
+                        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                    </svg>
+                    <input type="text" class="library-search-input" id="lib-search" placeholder="Search your library…" oninput="filterLibrary()">
+                </div>
+                <div class="library-sort-wrap">
+                    <select class="library-sort-select" id="lib-sort" onchange="filterLibrary()">
+                        <option value="recent">Recently Acquired</option>
+                        <option value="title">Title A–Z</option>
+                        <option value="author">Author A–Z</option>
+                        <option value="genre">By Genre</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Genre filter pills -->
+            <div class="library-genre-pills" id="lib-genre-pills">
+                <button class="lib-genre-pill active" data-genre="all" onclick="setGenreFilter(this, 'all')">All</button>
+            </div>
+
+            <!-- Book grid -->
+            <div class="library-grid" id="library-body">
+                <div class="library-loading">
+                    <div class="lib-spinner"></div>
+                    <span>Loading your books…</span>
+                </div>
+            </div>
         </div>
     </div>
     <div class="library-overlay" id="library-overlay"></div>
@@ -635,24 +822,57 @@
     <!-- pay modal removed — checkout is now embedded in cart panel -->
 
     <!-- ========== WISHLIST POPUP ========== -->
-    <div class="wishlist-popup" id="wishlist-popup">
-        <div class="wishlist-popup-header">
-            <span class="wishlist-popup-title">
-                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:6px;">
-                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-                </svg>My Wishlist
-            </span>
-            <button class="wishlist-popup-close" onclick="closeWishlist()">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
-                </svg>
-            </button>
-        </div>
-        <div class="wishlist-popup-body" id="wishlist-body">
-            <div class="popup-empty">Your wishlist is empty.</div>
+    <div class="library-page" id="wishlist-popup">
+        <div class="library-page-inner">
+            <!-- Header -->
+            <div class="library-page-header">
+                <div class="library-page-header-left">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                    </svg>
+                    <div>
+                        <h1 class="library-page-title">My Wishlist</h1>
+                        <p class="library-page-subtitle" id="wishlist-subtitle">Your saved books</p>
+                    </div>
+                </div>
+                <div style="display:flex;align-items:center;gap:0.75rem;">
+                    <button class="btn-dark" id="clear-wishlist-btn" style="display:none;font-size:0.8rem;padding:0.4rem 0.9rem;">Clear All</button>
+                    <button class="library-page-close" onclick="closeWishlist()" aria-label="Close wishlist">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Controls: search + sort -->
+            <div class="library-controls">
+                <div class="library-search-wrap">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="library-search-icon">
+                        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                    </svg>
+                    <input type="text" class="library-search-input" id="wishlist-search" placeholder="Search your wishlist…" oninput="renderWishlist()">
+                </div>
+                <div class="library-sort-wrap">
+                    <select class="library-sort-select" id="wishlist-sort" onchange="renderWishlist()">
+                        <option value="recent">Recently Added</option>
+                        <option value="title">Title A–Z</option>
+                        <option value="author">Author A–Z</option>
+                        <option value="price">Price</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Book grid -->
+            <div class="library-grid" id="wishlist-body">
+                <div class="library-loading">
+                    <div class="lib-spinner"></div>
+                    <span>Loading your wishlist…</span>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="wishlist-overlay" id="wishlist-overlay"></div>
+    <div class="library-overlay" id="wishlist-overlay"></div>
 
     <!-- ========== TOAST ========== -->
     <div class="toast" id="toast"></div>
@@ -743,7 +963,7 @@
                 </div>
                 <div class="sample-footer">
                     <span class="sample-page">Page 1 of 1 · Sample ends here</span>
-                    <button class="sample-cta" onclick="addToCart(9); closeSample();">Add to Cart — $24.99</button>
+                    <button class="sample-cta" onclick="addToCart(9); closeSample();">Add to Cart</button>
                 </div>
             </div>
         </div>
@@ -838,5 +1058,234 @@
         }
     });
     </script>
+
+<!-- ========== YOMITE PASS MODAL ========== -->
+<div class="pass-modal-overlay" id="pass-modal-overlay">
+    <div class="pass-modal" id="pass-modal">
+
+        <button class="pass-modal-close" id="pass-modal-close" title="Close">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+        </button>
+
+        <!-- Header -->
+        <div class="pass-modal-header">
+            <h2>Choose your <em>Yomite Pass.</em></h2>
+            <p>Read more, spend less. Pick the plan that fits your reading life.</p>
+        </div>
+
+        <!-- Current plan banner -->
+        <div class="current-plan-banner" id="pm-current-banner" style="display:none;">
+            <span>Your current plan:</span>
+            <strong id="pm-banner-name">—</strong>
+            <span class="current-plan-badge">Active</span>
+            <span style="color:var(--ink-3);font-size:0.85rem;" id="pm-banner-renews"></span>
+        </div>
+
+        <!-- Tier cards -->
+        <div class="tier-grid">
+
+            <!-- FREE -->
+            <div class="tier-card" id="pm-card-free">
+                <div class="tier-name">Yomite Free</div>
+                <div class="tier-price">
+                    <span class="tier-price-amount">$0.00</span>
+                    <span class="tier-price-period">/ month</span>
+                </div>
+                <p class="tier-tagline">A taste of what Yomite has to offer — no commitment needed.</p>
+                <hr class="tier-divider">
+                <ul class="tier-features">
+                    <li><span class="feat-icon yes">✦</span> Vol. 1 of ~20–30 rotating titles</li>
+                    <li><span class="feat-icon yes">✦</span> 1 device</li>
+                    <li><span class="feat-icon yes">✦</span> No ads — ever</li>
+                    <li class="feat-disabled"><span class="feat-icon no">✕</span> Full catalog access</li>
+                    <li class="feat-disabled"><span class="feat-icon no">✕</span> Early chapter access</li>
+                    <li class="feat-disabled"><span class="feat-icon no">✕</span> Ink Box perks</li>
+                </ul>
+                <button class="tier-cta" id="pm-cta-free" onclick="pmConfirmPlan('free','Yomite Free','$0/mo')">
+                    Get Started Free
+                </button>
+            </div>
+
+            <!-- STUDENT (featured) -->
+            <div class="tier-card featured" id="pm-card-student">
+                <div class="tier-popular-badge">Most Popular</div>
+                <div class="tier-name">Yomite Student</div>
+                <div class="tier-price">
+                    <span class="tier-price-amount">$4.99</span>
+                    <span class="tier-price-period">/ month</span>
+                </div>
+                <p class="tier-tagline">Full access for readers who want more without breaking the budget.</p>
+                <hr class="tier-divider">
+                <ul class="tier-features">
+                    <li><span class="feat-icon yes">✦</span> Full catalog — manga &amp; light novels</li>
+                    <li><span class="feat-icon yes">✦</span> 1 device (switchable monthly)</li>
+                    <li><span class="feat-icon yes">✦</span> No ads — ever</li>
+                    <li><span class="feat-icon yes">✦</span> Early chapter access</li>
+                    <li><span class="feat-icon yes">✦</span> Ink Box: early releases</li>
+                    <li class="feat-disabled"><span class="feat-icon no">✕</span> Studio events &amp; author Q&amp;As</li>
+                </ul>
+                <button class="tier-cta cta-primary" id="pm-cta-student" onclick="pmConfirmPlan('student','Yomite Student','$4.99/mo')">
+                    Subscribe — $4.99/mo
+                </button>
+            </div>
+
+            <!-- REGULAR -->
+            <div class="tier-card" id="pm-card-regular">
+                <div class="tier-name">Yomite Regular</div>
+                <div class="tier-price">
+                    <span class="tier-price-amount">$9.99</span>
+                    <span class="tier-price-period">/ month</span>
+                </div>
+                <p class="tier-tagline">Everything Yomite has — for the reader who's all-in.</p>
+                <hr class="tier-divider">
+                <ul class="tier-features">
+                    <li><span class="feat-icon yes">✦</span> Full catalog — manga &amp; light novels</li>
+                    <li><span class="feat-icon yes">✦</span> Up to 3 devices</li>
+                    <li><span class="feat-icon yes">✦</span> No ads — ever</li>
+                    <li><span class="feat-icon yes">✦</span> Early chapter access</li>
+                    <li><span class="feat-icon yes">✦</span> Ink Box: early releases</li>
+                    <li><span class="feat-icon yes">✦</span> Studio events &amp; author Q&amp;As</li>
+                </ul>
+                <button class="tier-cta" id="pm-cta-regular" onclick="pmConfirmPlan('regular','Yomite Regular','$9.99/mo')">
+                    Subscribe — $9.99/mo
+                </button>
+            </div>
+
+        </div><!-- /.tier-grid -->
+
+        <!-- Step 2: Payment form (shown inline below cards) -->
+        <div class="pm-payment-step" id="pm-payment-step" style="display:none;">
+            <button class="sub-modal-back" onclick="pmGoToTiers()">← Back to plans</button>
+            <h3 class="sub-modal-pay-title">Payment Details</h3>
+            <p class="sub-modal-pay-sub">Billed <strong id="pm-pay-label"></strong> · Cancel anytime.</p>
+            <div id="pm-pay-error" class="sub-pay-error" style="display:none;"></div>
+            <div class="sub-pay-field">
+                <label class="sub-pay-label">Cardholder Name</label>
+                <input class="sub-pay-input" id="pm-pay-name" type="text" placeholder="Name on card" autocomplete="cc-name">
+            </div>
+            <div class="sub-pay-field">
+                <label class="sub-pay-label">Card Number</label>
+                <div class="sub-pay-card-wrap">
+                    <input class="sub-pay-input" id="pm-pay-card" type="text" placeholder="0000 0000 0000 0000" maxlength="19" autocomplete="cc-number">
+                    <span class="sub-pay-card-icons">
+                        <svg viewBox="0 0 38 24" width="32"><rect width="38" height="24" rx="4" fill="#1a1f71"/><rect y="7" width="38" height="6" fill="#f7a600"/></svg>
+                        <svg viewBox="0 0 38 24" width="32"><rect width="38" height="24" rx="4" fill="#fff" stroke="#e0e0e0"/><circle cx="15" cy="12" r="7" fill="#eb001b"/><circle cx="23" cy="12" r="7" fill="#f79e1b"/><path d="M19 6.8a7 7 0 0 1 0 10.4A7 7 0 0 1 19 6.8z" fill="#ff5f00"/></svg>
+                    </span>
+                </div>
+            </div>
+            <div class="sub-pay-row">
+                <div class="sub-pay-field">
+                    <label class="sub-pay-label">Expiry</label>
+                    <input class="sub-pay-input" id="pm-pay-expiry" type="text" placeholder="MM/YY" maxlength="5" autocomplete="cc-exp">
+                </div>
+                <div class="sub-pay-field">
+                    <label class="sub-pay-label">CVV</label>
+                    <input class="sub-pay-input" id="pm-pay-cvv" type="text" placeholder="•••" maxlength="4" autocomplete="cc-csc">
+                </div>
+            </div>
+            <button class="sub-pay-confirm" id="pm-pay-confirm-btn" onclick="pmExecuteChange()">
+                Subscribe — <span id="pm-pay-btn-price"></span>
+            </button>
+            <p class="sub-pay-disclaimer">🔒 Demo only. No real payment is processed.</p>
+        </div>
+
+    </div><!-- /.pass-modal -->
+</div><!-- /.pass-modal-overlay -->
+
+
+<script>
+var _pmCurrentPlan='free',_pmPending=null;
+function openPassModal(){
+  document.getElementById('pass-modal-overlay').style.display='flex';
+  document.body.style.overflow='hidden';
+  pmGoToTiers(); pmLoadPlan();
+}
+function closePassModal(){
+  document.getElementById('pass-modal-overlay').style.display='none';
+  document.body.style.overflow='';
+  _pmPending=null;
+}
+function pmLoadPlan(){
+  fetch('/WD3_Project_Sem2_MangaWebsite/Project/app/subscription-get.php')
+  .then(function(r){return r.json();})
+  .then(function(d){
+    if(!d.success)return;
+    _pmCurrentPlan=d.subscription.plan_slug;
+    var n=document.getElementById('pm-banner-name');
+    var b=document.getElementById('pm-current-banner');
+    if(n) n.textContent=d.subscription.name;
+    if(b) b.style.display='flex';
+    pmMarkActive(_pmCurrentPlan);
+  }).catch(function(){});
+}
+function pmMarkActive(slug){
+  ['free','student','regular'].forEach(function(s){
+    var card=document.getElementById('pm-card-'+s);
+    var btn=document.getElementById('pm-cta-'+s);
+    if(!card||!btn)return;
+    card.classList.toggle('active-plan',s===slug);
+    btn.disabled=s===slug;
+    btn.textContent=s===slug?'✓ Current Plan':s==='free'?'Get Started Free':s==='student'?'Subscribe — $4.99/mo':'Subscribe — $9.99/mo';
+  });
+}
+function pmGoToTiers(){
+  var grid=document.querySelector('#pass-modal .tier-grid');
+  var step=document.getElementById('pm-payment-step');
+  var banner=document.getElementById('pm-current-banner');
+  if(grid) grid.style.display='';
+  if(step) step.style.display='none';
+  if(banner) banner.style.display='none';
+  ['pm-pay-name','pm-pay-card','pm-pay-expiry','pm-pay-cvv'].forEach(function(id){
+    var el=document.getElementById(id); if(el) el.value='';
+  });
+}
+function pmConfirmPlan(slug,name,price){
+  if(slug===_pmCurrentPlan)return;
+  _pmPending={slug:slug,name:name,price:price};
+  pmExecuteChange();
+}
+function pmExecuteChange(){
+  if(!_pmPending)return;
+  var slug=_pmPending.slug,name=_pmPending.name;
+  _pmCurrentPlan=slug;
+  window._userPlan=slug;
+  // Sync the settings drawer badge
+  var badge=document.getElementById('sp-plan-badge');
+  if(badge){badge.textContent=name;badge.dataset.plan=slug;}
+  closePassModal();
+  if(typeof showToast==='function') showToast('Switched to '+name+'!');
+  if(typeof initStorefrontAccess==='function') initStorefrontAccess();
+  fetch('/WD3_Project_Sem2_MangaWebsite/Project/app/subscription-set.php',{
+    method:'POST',
+    headers:{'Content-Type':'application/x-www-form-urlencoded'},
+    body:new URLSearchParams({plan:slug})
+  });
+}
+/* wire up */
+(function(){
+  var ov=document.getElementById('pass-modal-overlay');
+  if(ov) ov.addEventListener('click',function(e){if(e.target===ov) closePassModal();});
+  var cb=document.getElementById('pass-modal-close');
+  if(cb) cb.addEventListener('click',closePassModal);
+  var nb=document.getElementById('pass-nav-btn');
+  if(nb) nb.addEventListener('click',function(e){e.preventDefault();openPassModal();});
+  var card=document.getElementById('pm-pay-card');
+  if(card) card.addEventListener('input',function(e){
+    var v=e.target.value.replace(/\D/g,'').slice(0,16);
+    e.target.value=v.match(/.{1,4}/g)?v.match(/.{1,4}/g).join(' '):v;
+  });
+  var exp=document.getElementById('pm-pay-expiry');
+  if(exp) exp.addEventListener('input',function(e){
+    var v=e.target.value.replace(/\D/g,'').slice(0,4);
+    if(v.length>=3) v=v.slice(0,2)+'/'+v.slice(2);
+    e.target.value=v;
+  });
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape'&&document.getElementById('pass-modal-overlay').style.display==='flex') closePassModal();
+  });
+})();
+</script>
 </body>
 </html>

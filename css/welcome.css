@@ -1,5 +1,7 @@
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
+html { font-size: 14px; }
+
 :root {
     --font-body: 'Times New Roman', Times, Georgia, serif;
     --accent: #c0392b;
@@ -435,3 +437,205 @@ body::after {
 }
 .ob-theme-dark .ob-tp-line { background: rgba(255,255,255,0.08); }
 .ob-tp-short { width: 60%; }
+/* ---- CURRENCY PICKER (slide 4) ---- */
+.ob-currency-pick {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.ob-currency-btn {
+    background: none;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 22px;
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--ink-3);
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+}
+
+.ob-currency-btn.selected {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+/* ---- SUBSCRIPTION SLIDE (slide 6) ---- */
+.ob-subscribe-slide {
+    align-items: flex-start;
+    overflow-y: auto;
+    padding: 2.5rem 3rem;
+}
+
+.ob-subscribe-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    max-width: 880px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.ob-subscribe-inner .ob-step-label { margin-bottom: 0.5rem; }
+.ob-subscribe-inner .ob-title      { font-size: 2rem; margin-bottom: 0.5rem; }
+.ob-subscribe-inner .ob-desc       { margin-bottom: 1.5rem; font-size: 0.92rem; }
+
+/* Tier grid */
+.ob-tier-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    width: 100%;
+    margin-bottom: 1.25rem;
+}
+
+/* Tier card */
+.ob-tier-card {
+    background: rgba(255,255,255,0.7);
+    border: 1.5px solid var(--border);
+    border-radius: 14px;
+    padding: 22px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+    backdrop-filter: blur(6px);
+}
+
+[data-theme="dark"] .ob-tier-card {
+    background: rgba(26,26,26,0.75);
+}
+
+.ob-tier-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(192,57,43,0.10);
+}
+
+.ob-tier-card.ob-tier-featured {
+    border-color: var(--accent);
+    background: rgba(255,255,255,0.85);
+}
+
+[data-theme="dark"] .ob-tier-card.ob-tier-featured {
+    background: rgba(30,18,18,0.85);
+}
+
+.ob-tier-card.ob-tier-selected {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(192,57,43,0.15);
+}
+
+/* Popular badge */
+.ob-tier-popular {
+    position: absolute;
+    top: -11px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.68rem;
+    font-weight: 800;
+    padding: 3px 12px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+    white-space: nowrap;
+}
+
+.ob-tier-name {
+    font-size: 0.78rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--ink);
+    margin-bottom: 4px;
+}
+
+.ob-tier-price {
+    font-size: 1.9rem;
+    font-weight: 900;
+    color: var(--ink);
+    line-height: 1;
+    margin-bottom: 14px;
+}
+
+.ob-tier-price span {
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--ink-3);
+}
+
+/* Feature list */
+.ob-tier-feats {
+    list-style: none;
+    margin: 0 0 18px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    flex: 1;
+}
+
+.ob-tier-feats li {
+    font-size: 0.78rem;
+    color: var(--ink-3);
+    display: flex;
+    align-items: flex-start;
+    gap: 7px;
+    line-height: 1.4;
+}
+
+.ob-feat-y { color: var(--accent); flex-shrink: 0; }
+.ob-feat-n { color: var(--border); flex-shrink: 0; }
+
+/* CTA button */
+.ob-tier-btn {
+    width: 100%;
+    padding: 10px 0;
+    border-radius: 8px;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    border: 1.5px solid var(--accent);
+    background: transparent;
+    color: var(--accent);
+    transition: background 0.15s, color 0.15s;
+    margin-top: auto;
+}
+
+.ob-tier-btn:hover {
+    background: var(--accent);
+    color: #fff;
+}
+
+.ob-tier-btn--primary {
+    background: var(--accent);
+    color: #fff;
+}
+
+.ob-tier-btn--primary:hover {
+    background: var(--accent-hover);
+    border-color: var(--accent-hover);
+}
+
+/* "Not Now" link */
+.ob-not-now {
+    background: none;
+    border: none;
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    color: var(--ink-3);
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.2s;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    align-self: center;
+}
+
+.ob-not-now:hover { color: var(--ink); }
