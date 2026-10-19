@@ -1,0 +1,2148 @@
+/***********************************
+Imports and site wide configurations
+***********************************/
+
+/* - - - - - - - - [ Fonts ] - - - - - - - - - - */
+@font-face {
+  font-family: 'default';
+  src: url('../img/fonts/Montserrat.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'pixel';
+  src: url('../img/fonts/Minecraft.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'typewriter';
+  src: url('../img/fonts/Typewriter.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'handwrite';
+  src: url('../img/fonts/Cuter.ttf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* - - - - - - - - [ HTML element configuration ] - - - - - - - - - - */
+* {
+  padding: 0;
+  margin: 0;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+h1,
+h2,
+h3 {
+  transition: font-family 0.3s ease;
+}
+
+button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: opacity 0.1s, transform 0.1s;
+}
+
+button:active {
+  opacity: 0.5;
+  transform: translateY(2px);
+}
+
+body {
+  font-family: 'default', Cambria, serif, sans-serif;
+  background-color: white;
+  color: black;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+body.dark {
+  background-color: #1a1a1a;
+  color: white;
+}
+
+/* - - - - - - - - [ Accent colors ] - - - - - - - - - - */
+:root {
+  --accent-light: #1a1a1a;
+  --accent-neon: #ffffff;
+}
+
+.accent {
+  color: var(--accent-light);
+}
+
+body.dark .accent {
+  color: var(--accent-neon);
+}
+
+/* Image filters - Light mode (darker) */
+img.accent {
+  filter: brightness(0);
+}
+
+body[accent="blue"] img.accent {
+  filter: invert(20%) sepia(90%) saturate(2000%) hue-rotate(210deg);
+}
+
+body[accent="red"] img.accent {
+  filter: invert(15%) sepia(90%) saturate(4000%) hue-rotate(355deg);
+}
+
+body[accent="yellow"] img.accent {
+  filter: invert(75%) sepia(85%) saturate(600%) hue-rotate(10deg);
+}
+
+body[accent="green"] img.accent {
+  filter: invert(25%) sepia(90%) saturate(2000%) hue-rotate(100deg);
+}
+
+body[accent="purple"] img.accent {
+  filter: invert(20%) sepia(90%) saturate(2000%) hue-rotate(260deg);
+}
+
+body[accent="pink"] img.accent {
+  filter: invert(30%) sepia(90%) saturate(2000%) hue-rotate(300deg);
+}
+
+body[accent="orange"] img.accent {
+  filter: invert(35%) sepia(90%) saturate(2000%) hue-rotate(10deg);
+}
+
+/* Image filters - Dark mode (neon) */
+body.dark img.accent {
+  filter: brightness(0) invert(1);
+}
+
+body.dark[accent="blue"] img.accent {
+  filter: invert(70%) sepia(90%) saturate(1500%) hue-rotate(190deg) brightness(110%);
+}
+
+body.dark[accent="red"] img.accent {
+  filter: invert(50%) sepia(100%) saturate(3000%) hue-rotate(340deg) brightness(110%);
+}
+
+body.dark[accent="yellow"] img.accent {
+  filter: invert(90%) sepia(80%) saturate(800%) hue-rotate(5deg) brightness(110%);
+}
+
+body.dark[accent="green"] img.accent {
+  filter: invert(70%) sepia(90%) saturate(1500%) hue-rotate(90deg) brightness(110%);
+}
+
+body.dark[accent="purple"] img.accent {
+  filter: invert(60%) sepia(100%) saturate(2000%) hue-rotate(250deg) brightness(110%);
+}
+
+body.dark[accent="pink"] img.accent {
+  filter: invert(70%) sepia(100%) saturate(2000%) hue-rotate(290deg) brightness(110%);
+}
+
+body.dark[accent="orange"] img.accent {
+  filter: invert(70%) sepia(100%) saturate(2000%) hue-rotate(360deg) brightness(110%);
+}
+
+/* ===== ACCENT PICKER ===== */
+#accent-picker {
+  display: none;
+  position: absolute;
+  top: 100%;
+  background: white;
+  border-radius: 10px;
+  padding: 10px;
+  gap: 8px;
+  flex-wrap: wrap;
+  width: 150px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 100;
+}
+
+#accent-picker.show {
+  display: flex;
+}
+
+body.dark #accent-picker {
+  background: #444;
+}
+
+.accent-option {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+
+.accent-option:hover {
+  transform: scale(1.15);
+}
+
+.accent-option.active {
+  border-color: #333;
+}
+
+body.dark .accent-option.active {
+  border-color: white;
+}
+
+.accent-option[color="black"] {
+  background: linear-gradient(135deg, #1a1a1a 50%, #e0e0e0 50%);
+}
+
+.accent-option[color="blue"] {
+  background: #3b82f6;
+}
+
+.accent-option[color="red"] {
+  background: #ef4444;
+}
+
+.accent-option[color="yellow"] {
+  background: #eab308;
+}
+
+.accent-option[color="green"] {
+  background: #22c55e;
+}
+
+.accent-option[color="purple"] {
+  background: #8b5cf6;
+}
+
+.accent-option[color="pink"] {
+  background: #ec4899;
+}
+
+.accent-option[color="orange"] {
+  background: #f97316;
+}
+
+/* - - - - - - - - [ Navigation bar ] - - - - - - - - - - */
+nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100vw;
+  height: 5rem;
+  background-color: lightgray;
+  transition: background-color 0.3s;
+}
+
+nav img {
+  width: 3rem;
+  height: auto;
+  filter: brightness(0);
+  cursor: pointer;
+}
+
+nav img:hover {
+  transform: scale(1.2);
+}
+
+#navbar-left img {
+  filter: none !important;
+}
+
+#navbar-links {
+  display: flex;
+  gap: 30px;
+}
+
+#navbar-right {
+  display: flex;
+  gap: 30px;
+  position: relative;
+}
+
+#navbar-right-cosmetics {
+  display: none;
+  align-items: center;
+  gap: 30px;
+  background: white;
+  border-radius: 50px;
+  padding: 5px 15px;
+  position: relative;
+}
+
+#navbar-right-cosmetics.show {
+  display: flex;
+}
+
+#navbar-links li {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* show nav icon name */
+.nav-tooltip {
+  position: absolute;
+  bottom: -30px;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s, transform 0.3s;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+#navbar-links li:hover .nav-tooltip {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* mobile nav icon name */
+.nav-label {
+  display: none;
+  font-size: 0.7rem;
+  margin-top: 4px;
+  color: inherit;
+}
+
+/* Darkmode*/
+body.dark #navbar-right-cosmetics {
+  background: #3a3a3a;
+}
+
+body.dark nav img {
+  filter: brightness(0) invert(1);
+}
+
+body.dark nav {
+  background-color: #2a2a2a;
+}
+
+body.dark .nav-tooltip {
+  background: rgba(255, 255, 255, 0.9);
+  color: black;
+}
+
+/* - - - - - - - - [ Footer ] - - - - - - - - - - */
+footer {
+  background-color: lightgray;
+  color: #333;
+  text-align: center;
+  padding: 1rem;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  opacity: 80%;
+  pointer-events: none;
+  box-sizing: border-box;
+}
+
+/* Dark mode*/
+body.dark footer {
+  background-color: #2a2a2a;
+  color: white;
+}
+
+/***********************************
+          Home page
+***********************************/
+#homeSection {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 2rem;
+  margin: 2rem;
+}
+
+/* - - - - - - - - [ Welcome text ] - - - - - - - - - - */
+.Welcome {
+  display: block;
+  text-align: center;
+}
+
+.Welcome img {
+  width: 20rem;
+  height: auto;
+}
+
+#welcomeUser {
+  display: none;
+}
+
+#welcomeBackUser {
+  display: block;
+}
+
+#welcomeMessage {
+  color: blueviolet;
+}
+
+#welcomeUserNamer {
+  display: none;
+}
+
+/* Notes Section */
+.notesSection {
+  border: 3px solid var(--accent-light);
+  border-radius: 30px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+body.dark .notesSection {
+  border-color: var(--accent-neon);
+}
+
+.notesSection h2 {
+  margin: 0;
+  color: var(--accent-light);
+  text-align: center;
+}
+
+body.dark .notesSection h2 {
+  color: var(--accent-neon);
+}
+
+.notesControls {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.notesControls img {
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.notesControls img:hover {
+  transform: scale(1.2);
+}
+
+#notesArea {
+  width: 100%;
+  min-height: 200px;
+  padding: 1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 15px;
+  font-family: inherit;
+  font-size: 1rem;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+#notesArea:focus {
+  outline: none;
+  border-color: var(--accent-light);
+}
+
+body.dark #notesArea {
+  background-color: #2a2a2a;
+  color: white;
+  border-color: #555;
+}
+
+body.dark #notesArea:focus {
+  border-color: var(--accent-neon);
+}
+
+/* Mini Todo */
+.miniTodo {
+  border: 3px solid var(--accent-light);
+  border-radius: 30px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 400px;
+}
+
+body.dark .miniTodo {
+  border-color: var(--accent-neon);
+}
+
+.miniTodo h2 {
+  margin-bottom: 1rem;
+  color: var(--accent-light);
+}
+
+body.dark .miniTodo h2 {
+  color: var(--accent-neon);
+}
+
+#miniTodoList {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+#miniTodoList li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  margin: 5px 0;
+  background: lightgray;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+body.dark #miniTodoList li {
+  background: #3a3a3a;
+}
+
+#miniTodoList li:hover {
+  background: #ddd;
+}
+
+body.dark #miniTodoList li:hover {
+  background: #4a4a4a;
+}
+
+#miniTodoList .checkbox {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--accent-light);
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+body.dark #miniTodoList .checkbox {
+  border-color: var(--accent-neon);
+}
+
+.view-all {
+  display: block;
+  text-align: center;
+  margin-top: 1rem;
+  color: var(--accent-light);
+  text-decoration: none;
+}
+
+body.dark .view-all {
+  color: var(--accent-neon);
+}
+
+/* Mini Calendar */
+.miniCalendar {
+  border: 3px solid var(--accent-light);
+  border-radius: 30px;
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+
+body.dark .miniCalendar {
+  border-color: var(--accent-neon);
+}
+
+.miniCalendar h2 {
+  margin-bottom: 1rem;
+  color: var(--accent-light);
+  text-align: center;
+}
+
+body.dark .miniCalendar h2 {
+  color: var(--accent-neon);
+}
+
+#calendarGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.cal-day {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  font-size: 0.8rem;
+}
+
+.cal-header {
+  font-weight: bold;
+  font-size: 0.7rem;
+  opacity: 0.7;
+}
+
+.cal-day.today {
+  background: var(--accent-light);
+  color: white;
+  font-weight: bold;
+}
+
+body.dark .cal-day.today {
+  background: var(--accent-neon);
+  color: black;
+}
+
+/* - - - - - - - - [ Music player ] - - - - - - - - - - */
+/* Default configuration */
+.Muse {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto;
+  gap: 0.1rem;
+  border: solid #1a1a1a 3px;
+  border-radius: 50px;
+  width: fit-content;
+  max-width: 100%;
+  overflow-y: auto;
+  height: auto;
+  transition: grid-template-columns 0.4s ease-in-out;
+  box-sizing: border-box;
+}
+
+.Muse.expanded {
+  grid-template-columns: 1fr 1fr;
+}
+
+body.dark .Muse {
+  border-color: white;
+}
+
+/* Now playing/Disk section */
+#musePlayer {
+  grid-column: span 2 / span 2;
+  grid-row: span 2 / span 2;
+  margin: 2rem;
+  border: 3px #3a3a3a solid;
+  border-radius: 50px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+body.dark #musePlayer {
+  border-color: #666;
+}
+
+#musePlayer img {
+  width: 20rem;
+  height: auto;
+  animation: spin 4s linear infinite;
+  animation-play-state: paused;
+}
+
+#musePlayer img.spinning {
+  animation-play-state: running;
+}
+
+#museTitle {
+  margin-top: 1rem;
+  padding: 1rem;
+  color: white;
+  background-color: gray;
+  border: 3px;
+  border-radius: 50px;
+  max-width: 15rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Progress bar and song duration */
+#museProgress {
+  width: 80%;
+  height: 6px;
+  background-color: lightgray;
+  border-radius: 3px;
+  margin-top: 1rem;
+  cursor: pointer;
+}
+
+#museProgressBar {
+  width: 0%;
+  height: 100%;
+  background-color: #3a3a3a;
+  border-radius: 3px;
+  transition: width 0.1s linear;
+}
+
+#museTime {
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+  opacity: 0.7;
+}
+
+/* Dark mode for muse player*/
+body.dark #museProgress {
+  background-color: #555;
+}
+
+body.dark #museProgressBar {
+  background-color: white;
+}
+
+/* Playlist section (hidden by default until file is uploaded) */
+#museLibrary {
+  grid-column: span 2 / span 2;
+  grid-row: span 3 / span 3;
+  grid-column-start: 3;
+  margin: 2rem;
+  border: 3px #3a3a3a solid;
+  border-radius: 50px;
+  padding: 2rem;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+body.dark #museLibrary {
+  border-color: #666;
+}
+
+/* Connects to js to show play list*/
+#museLibrary.show {
+  display: block;
+  opacity: 1;
+  max-height: 40rem;
+  height: 100%;
+  width: 90%;
+  box-sizing: border-box;
+}
+
+/* Playlist toolbar */
+#museToolbar {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+#museToolbar img {
+  width: 1.5rem;
+  height: 1.5rem;
+  cursor: pointer;
+  filter: brightness(0);
+  opacity: 0.6;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+#museToolbar img:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* Dark mode */
+body.dark #museToolbar img {
+  filter: brightness(0) invert(1);
+}
+
+/* Playlist edit controls */
+#museEditControls {
+  display: none;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+#museEditControls.show {
+  display: flex;
+}
+
+#museEditControls button {
+  padding: 0.5rem 1rem;
+  background-color: transparent;
+  color: white;
+  border-radius: 20px;
+  font-family: inherit;
+  font-size: 0.8rem;
+}
+
+#museEditControls img {
+  width: 2rem;
+  height: auto;
+}
+
+#museEditControls button:hover {
+  background-color: #555;
+}
+
+/* Drag handle for reordering */
+#museLibrary li .drag-handle {
+  cursor: grab;
+  padding: 0 0.5rem;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+#museLibrary li:hover .drag-handle {
+  opacity: 0.6;
+}
+
+#museLibrary li .drag-handle:active {
+  cursor: grabbing;
+}
+
+#museLibrary li.dragging {
+  opacity: 0.5;
+  background-color: #666;
+}
+
+/* Checkbox for edit mode */
+#museLibrary li .checkbox {
+  display: none;
+  width: 1.2rem;
+  height: 1.2rem;
+  border: 2px solid #3a3a3a;
+  border-radius: 4px;
+  margin-right: 0.5rem;
+}
+
+#museEditControls.show~#musePlaylist li .checkbox {
+  display: inline-block;
+}
+
+#museLibrary li.selected .checkbox {
+  background-color: #3498db;
+  border-color: #3498db;
+}
+
+#museLibrary li.selected .checkbox::after {
+  content: '✓';
+  color: white;
+  display: block;
+  text-align: center;
+  font-size: 0.9rem;
+  line-height: 1.2rem;
+}
+
+/* The actual playlist items */
+#museLibrary li {
+  background-color: lightgray;
+  padding: 1rem;
+  margin: 0.5rem 0;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#museLibrary li.playing {
+  background-color: white;
+  border: 2px solid #3a3a3a;
+}
+
+#museLibrary li.delete-ready {
+  background-color: #e74c3c;
+  color: white;
+}
+
+#museLibrary li.selected {
+  background-color: #3498db;
+  color: white;
+}
+
+/* Dark mode */
+body.dark #museLibrary li {
+  background-color: #3a3a3a;
+}
+
+body.dark #museLibrary li.playing {
+  background-color: #1a1a1a;
+  border: 2px solid white;
+}
+
+/* Playlist scrollbar*/
+#museLibrary::-webkit-scrollbar {
+  width: 8px;
+}
+
+#museLibrary::-webkit-scrollbar-track {
+  background: lightgray;
+  border-radius: 10px;
+}
+
+#museLibrary::-webkit-scrollbar-thumb {
+  background: #3a3a3a;
+  border-radius: 10px;
+}
+
+body.dark #museLibrary::-webkit-scrollbar-track {
+  background: #2a2a2a;
+}
+
+body.dark #museLibrary::-webkit-scrollbar-thumb {
+  background: #666;
+}
+
+/* Music controls */
+#museControls {
+  grid-column: span 2 / span 2;
+  grid-row-start: 3;
+  margin: 2rem;
+  border: 3px #3a3a3a solid;
+  border-radius: 50px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 1.5rem;
+  align-items: center;
+  text-align: center;
+}
+
+body.dark #museControls {
+  border-color: #666;
+}
+
+#museControls img {
+  width: 4rem;
+  height: auto;
+}
+
+/***********************************
+          Todo page
+***********************************/
+#todoSection {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 2rem;
+  margin: 10rem;
+}
+
+#todoList {
+  border-radius: 20px;
+  width: 100%;
+  max-width: 800px;
+  overflow: hidden;
+  border: solid 5px;
+  border-color: var(--accent-light);
+}
+
+body.dark #todoList {
+  border-color: var(--accent-neon);
+  background-color: #2a2a2a;
+}
+
+.todoTitle {
+  background-color: var(--accent-light);
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+body.dark .todoTitle {
+  background-color: var(--accent-neon);
+  color: black;
+}
+
+.todoTitle h1 {
+  margin: 0;
+  font-weight: 600;
+}
+
+.createItems {
+  padding: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+#newItem {
+  flex: 1;
+  padding: 12px 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+#newItem:focus {
+  border-color: var(--accent-light);
+}
+
+body.dark #newItem {
+  background-color: #3a3a3a;
+  color: white;
+  border-color: #555;
+}
+
+#addItems {
+  background-color: var(--accent-light);
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+#addItems:hover {
+  opacity: 0.8;
+}
+
+body.dark #addItems {
+  background-color: var(--accent-neon);
+  color: black;
+}
+
+.listItems {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.listItem {
+  display: flex;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid #f0f0f0;
+  animation: fadeIn 0.3s;
+}
+
+.listItem:last-child {
+  border-bottom: none;
+}
+
+body.dark .listItem {
+  border-bottom-color: #444;
+}
+
+.todo-text {
+  flex: 1;
+  margin: 0 15px;
+  font-size: 16px;
+  word-break: break-word;
+}
+
+.todo-text.editing {
+  display: none;
+}
+
+.edit-input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 2px solid var(--accent-light);
+  border-radius: 6px;
+  font-size: 16px;
+  display: none;
+}
+
+body.dark .edit-input {
+  background-color: #3a3a3a;
+  color: white;
+  border-color: var(--accent-neon);
+}
+
+.edit-input.active {
+  display: block;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btn {
+  border: none;
+  border-radius: 6px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s;
+  font-size: 14px;
+}
+
+.edit-btn {
+  background: #4cc9f0;
+  color: white;
+}
+
+.edit-btn:hover {
+  background: #3ab0d7;
+}
+
+.save-btn {
+  background: #4ade80;
+  color: white;
+  display: none;
+}
+
+.save-btn.active {
+  display: inline-block;
+}
+
+.delete-btn {
+  background: #f72585;
+  color: white;
+}
+
+.delete-btn:hover {
+  background: #d91b6a;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: #777;
+}
+
+body.dark .empty-state {
+  color: #999;
+}
+
+/* Due date input */
+#dueDate {
+  padding: 12px 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+#dueDate:focus {
+  border-color: var(--accent-light);
+}
+
+body.dark #dueDate {
+  background-color: #3a3a3a;
+  color: white;
+  border-color: #555;
+  color-scheme: dark;
+}
+
+/* Mini calendar popup */
+.miniCalendar {
+  position: relative;
+}
+
+.calendar-popup {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: 10px;
+  background: white;
+  border: 3px solid var(--accent-light);
+  border-radius: 20px;
+  padding: 1rem;
+  z-index: 100;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.calendar-popup.show {
+  display: block;
+}
+
+body.dark .calendar-popup {
+  background: #2a2a2a;
+  border-color: var(--accent-neon);
+}
+
+.calendar-popup h3 {
+  margin-bottom: 0.5rem;
+  color: var(--accent-light);
+}
+
+body.dark .calendar-popup h3 {
+  color: var(--accent-neon);
+}
+
+.calendar-popup ul {
+  list-style: none;
+}
+
+.calendar-popup li {
+  padding: 8px;
+  margin: 4px 0;
+  background: lightgray;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+body.dark .calendar-popup li {
+  background: #3a3a3a;
+}
+
+.cal-day.has-todos {
+  background: var(--accent-light);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+body.dark .cal-day.has-todos {
+  background: var(--accent-neon);
+  color: black;
+}
+
+/* Todo item due date display */
+.todo-due-date {
+  font-size: 0.8rem;
+  opacity: 0.7;
+  margin-left: 10px;
+}
+
+/***********************************
+          Timetable page
+***********************************/
+#timetableSection {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 2rem;
+  margin: 2rem;
+  padding: 2rem;
+}
+
+.timetable table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 2rem;
+}
+
+.timetable th,
+.timetable td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.timetable th {
+  background-color: #f2f2f2;
+}
+
+/* Timetable view controls */
+.calendarTitle {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.calendarButtons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.calendarButtons button {
+  padding: 10px 20px;
+  border: 2px solid var(--accent-light);
+  background: white;
+  border-radius: 20px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.3s;
+}
+
+.calendarButtons button:hover {
+  background: var(--accent-light);
+  color: white;
+}
+
+.calendarButtons button.active {
+  background: var(--accent-light);
+  color: white;
+}
+
+body.dark .calendarButtons button {
+  background: #2a2a2a;
+  border-color: var(--accent-neon);
+  color: white;
+}
+
+body.dark .calendarButtons button.active {
+  background: var(--accent-neon);
+  color: black;
+}
+
+/* Month calendar grid */
+#monthCalendarGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.month-cal-day {
+  aspect-ratio: 1;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  min-height: 100px;
+}
+
+.month-cal-day-header {
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+
+.month-cal-day-number {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.month-cal-day.today {
+  background: var(--accent-light);
+  color: white;
+  border-color: var(--accent-light);
+}
+
+body.dark .month-cal-day {
+  border-color: #555;
+  background: #2a2a2a;
+}
+
+body.dark .month-cal-day.today {
+  background: var(--accent-neon);
+  color: black;
+}
+
+.month-cal-day.has-todos-month {
+  border-color: var(--accent-light);
+  border-width: 3px;
+}
+
+body.dark .month-cal-day.has-todos-month {
+  border-color: var(--accent-neon);
+}
+
+.month-cal-todos {
+  font-size: 0.7rem;
+  margin-top: 5px;
+}
+
+.month-cal-todo-item {
+  background: var(--accent-light);
+  color: white;
+  padding: 2px 5px;
+  border-radius: 5px;
+  margin: 2px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+body.dark .month-cal-todo-item {
+  background: var(--accent-neon);
+  color: black;
+}
+
+/* Week table with todos */
+#weekTable td {
+  position: relative;
+  vertical-align: top;
+  min-height: 60px;
+}
+
+/* Simple today highlight */
+#weekTable .today-col {
+  background-color: #fffacd;
+}
+
+body.dark #weekTable .today-col {
+  background-color: #3a3a1a;
+}
+
+.week-todo-item {
+  background: var(--accent-light);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 8px;
+  margin: 2px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  display: block;
+}
+
+body.dark .week-todo-item {
+  background: var(--accent-neon);
+  color: black;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  #monthCalendarGrid {
+    gap: 5px;
+  }
+
+  .month-cal-day {
+    min-height: 80px;
+    padding: 5px;
+  }
+
+  .month-cal-day-number {
+    font-size: 1rem;
+  }
+
+  .month-cal-todos {
+    font-size: 0.6rem;
+  }
+}
+
+/***********************************
+          About page
+***********************************/
+.aboutSection {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.profiles {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+#teamTitle {
+  font-size: 3rem;
+  margin-bottom: 2rem;
+  letter-spacing: 0.1em;
+  transition: opacity 0.5s ease;
+}
+
+.profiles img {
+  width: 12rem;
+  height: 12rem;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--accent-light);
+}
+
+body.dark .profiles img {
+  border-color: var(--accent-neon);
+}
+
+.aboutArrow {
+  cursor: pointer;
+  transition: transform 0.2s, opacity 0.2s;
+  opacity: 0.7;
+}
+
+.aboutArrow:hover {
+  transform: scale(1.2);
+  opacity: 1;
+}
+
+#aboutName {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+#aboutInfo {
+  margin-top: 0.5rem;
+  font-size: 14px;
+  opacity: 0.8;
+  max-width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/***********************************
+     Mobile adaption settings
+***********************************/
+
+/* - - - - - - - - [ Tablets ] - - - - - - - - - - */
+@media (max-width: 780px) {
+
+  /* Navigation bar */
+  nav {
+    padding: 0 1rem;
+    position: relative;
+  }
+
+  nav img {
+    width: 2.5rem;
+  }
+
+  #navbar-links {
+    flex-direction: row;
+    gap: 20px;
+  }
+
+  #navbar-right {
+    gap: 15px;
+  }
+
+  #navbar-right-cosmetics {
+    position: absolute;
+    top: 100%;
+    right: 1rem;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  #navbar-right-cosmetics img {
+    width: 2rem;
+  }
+
+  .nav-tooltip {
+    display: none;
+  }
+
+  .nav-label {
+    display: block;
+  }
+
+  footer {
+    padding: 0.8rem;
+    font-size: 0.85rem;
+    position: fixed;
+    width: 100vw;
+  }
+
+  /* Home page */
+  #homeSection {
+    margin: 1rem;
+    gap: 1.5rem;
+  }
+
+  .Welcome img {
+    width: 14rem;
+  }
+
+  .Muse {
+    border-radius: 30px;
+    width: 100%;
+    grid-template-columns: 1fr;
+  }
+
+  .Muse.expanded {
+    grid-template-columns: 1fr;
+  }
+
+  #musePlayer {
+    margin: 1rem;
+    padding: 1.5rem;
+    border-radius: 30px;
+  }
+
+  #musePlayer img {
+    width: 12rem;
+  }
+
+  #museTitle {
+    max-width: 10rem;
+    padding: 0.75rem;
+    font-size: 0.9rem;
+  }
+
+  #museProgress {
+    width: 90%;
+  }
+
+  #museControls {
+    margin: 1rem;
+    padding: 1rem;
+    border-radius: 30px;
+    gap: 1rem;
+  }
+
+  #museControls img {
+    width: 2.5rem;
+  }
+
+  #museLibrary {
+    grid-column: 1 / -1;
+    grid-column-start: auto;
+    margin: 1rem;
+    padding: 1rem;
+    border-radius: 30px;
+    max-height: 300px;
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  #museLibrary li {
+    padding: 0.75rem;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    white-space: normal;
+    word-wrap: break-word;
+  }
+
+  #museToolbar {
+    top: 0.5rem;
+    right: 0.5rem;
+  }
+
+  #museToolbar img {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+
+  #museEditControls img {
+    width: 1.5rem;
+  }
+
+  /* Todo page */
+  #todoSection {
+    margin: 5rem 1rem;
+  }
+
+  /* Timetable page */
+  #timetableSection {
+    margin: 1rem;
+    padding: 1rem;
+  }
+
+  .weekView {
+    grid-template-columns: 60px repeat(7, 1fr);
+    font-size: 0.8rem;
+  }
+
+  /* About page */
+  .aboutSection {
+    padding: 2rem 1rem;
+  }
+
+  .profiles {
+    gap: 1rem;
+  }
+
+  .profiles img {
+    width: 8rem;
+    height: 8rem;
+  }
+
+  #teamTitle {
+    font-size: 2rem;
+  }
+
+  .aboutArrow {
+    width: 30px;
+    height: 30px;
+  }
+
+  #aboutName {
+    font-size: 20px;
+  }
+
+  #aboutInfo {
+    font-size: 12px;
+    max-width: 250px;
+    padding: 0 1rem;
+  }
+
+  .timetable {
+    overflow-x: auto;
+    width: 100%;
+  }
+
+  .timetable table {
+    min-width: 600px;
+  }
+
+  /* Tablet-specific adjustments for better touch experience */
+  .notesSection,
+  .miniTodo,
+  .miniCalendar {
+    max-width: 500px;
+    width: 90%;
+    max-width: 90%;
+    margin: 1rem auto;
+    box-sizing: border-box
+  }
+
+  #calendarGrid {
+    gap: 4px;
+  }
+
+  .cal-day {
+    min-height: 40px;
+    font-size: 0.85rem;
+  }
+
+  /* Timetable tablet optimizations */
+  #monthCalendarGrid {
+    gap: 8px;
+  }
+
+  .month-cal-day {
+    min-height: 90px;
+  }
+
+  .month-cal-todo-item {
+    font-size: 0.65rem;
+  }
+
+  .calendarButtons {
+    gap: 8px;
+    margin-bottom: 1.5rem;
+  }
+
+  .calendarButtons button {
+    min-height: 44px;
+    padding: 12px 16px;
+    margin: 2px;
+    font-size: 0.9rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  #monthCalendarGrid {
+    gap: 5px;
+  }
+
+  .month-cal-day {
+    min-height: 80px;
+    padding: 8px 5px;
+    touch-action: manipulation;
+  }
+
+  .month-cal-day-number {
+    font-size: 0.9rem;
+    margin-bottom: 3px;
+  }
+
+  .month-cal-todos {
+    font-size: 0.6rem;
+  }
+
+  .month-cal-todo-item {
+    min-height: 20px;
+    padding: 3px 5px;
+    margin: 1px 0;
+    font-size: 0.6rem;
+    touch-action: manipulation;
+    border-radius: 4px;
+    word-break: break-word;
+  }
+
+  #weekViewContainer {
+    overflow-x: auto;
+  }
+
+  .week-todo-item {
+    min-height: 36px;
+    padding: 6px 8px;
+    margin: 2px 0;
+    font-size: 0.75rem;
+    touch-action: manipulation;
+    border-radius: 6px;
+    word-break: break-word;
+  }
+
+  /* Today highlight in week view */
+  #weekTable .today-col {
+    background-color: rgba(255, 250, 205, 0.3);
+  }
+
+  body.dark #weekTable .today-col {
+    background-color: rgba(58, 58, 26, 0.3);
+  }
+
+  .notesSection {
+    width: 100%;
+    max-width: none;
+    margin: 1rem 0;
+    padding: 1.5rem;
+  }
+
+  #notesArea {
+    min-height: 120px;
+    font-size: 16px;
+    /* Prevents iOS zoom */
+    touch-action: manipulation;
+  }
+
+  .notesControls {
+    gap: 1.5rem;
+  }
+
+  .notesControls img {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 8px;
+  }
+}
+
+/* Mini Todo mobile optimization */
+@media (max-width: 768px) {
+  .miniTodo {
+    width: 100%;
+    max-width: none;
+    margin: 1rem 0;
+    padding: 1.5rem;
+  }
+
+  #miniTodoList li {
+    min-height: 44px;
+    padding: 12px 15px;
+    margin: 8px 0;
+    touch-action: manipulation;
+  }
+
+  .todo-text-mobile {
+    flex: 1;
+    word-break: break-word;
+    font-size: 0.9rem;
+  }
+}
+
+/* Mini Calendar mobile optimization */
+.miniCalendar {
+  width: 100%;
+  max-width: none;
+  margin: 1rem 0;
+  padding: 1.5rem;
+}
+
+#calendarGrid {
+  gap: 3px;
+}
+
+.cal-day {
+  min-height: 35px;
+  font-size: 0.8rem;
+  touch-action: manipulation;
+  border-radius: 6px;
+}
+
+.cal-header {
+  font-size: 0.7rem;
+}
+
+/* Calendar popup mobile styling */
+.calendar-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 300px;
+  max-height: 60vh;
+  z-index: 1000;
+  margin: 0;
+}
+
+.calendar-popup li {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  padding: 12px 15px;
+  margin: 5px 0;
+  touch-action: manipulation;
+  border-radius: 10px;
+}
+
+/* - - - - - - - - [ Phones ] - - - - - - - - - - */
+@media (max-width: 480px) {
+
+  /* Navigation bar*/
+  nav {
+    height: 4rem;
+  }
+
+  nav img {
+    width: 2rem;
+  }
+
+  #navbar-links {
+    gap: 15px;
+  }
+
+  #navbar-right {
+    gap: 10px;
+  }
+
+  #navbar-right-cosmetics {
+    gap: 10px;
+  }
+
+  .nav-label {
+    font-size: 0.6rem;
+  }
+
+  footer {
+    padding: 0.6rem;
+    font-size: 0.75rem;
+    position: fixed;
+    width: 100vw;
+  }
+
+  /* Home page */
+  #homeSection {
+    margin: 0.5rem;
+    gap: 1rem;
+  }
+
+  .Welcome img {
+    width: 10rem;
+  }
+
+  .Muse {
+    border-radius: 20px;
+    border-width: 2px;
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
+
+  .Muse.expanded {
+    grid-template-columns: 1fr;
+  }
+
+  #musePlayer {
+    margin: 0.5rem;
+    padding: 1rem;
+    border-radius: 20px;
+    border-width: 2px;
+  }
+
+  #musePlayer img {
+    width: 8rem;
+  }
+
+  #museTitle {
+    max-width: 8rem;
+    padding: 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  #museControls {
+    margin: 0.5rem;
+    padding: 0.75rem;
+    border-radius: 20px;
+    border-width: 2px;
+    gap: 0.75rem;
+  }
+
+  #museControls img {
+    width: 2.5rem;
+    padding: 0.5rem;
+  }
+
+  #museLibrary {
+    margin: 0.5rem;
+    padding: 0.75rem;
+    border-radius: 20px;
+    border-width: 2px;
+    max-height: 250px;
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  #museLibrary li {
+    padding: 0.6rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    white-space: normal;
+    word-wrap: break-word;
+  }
+
+  #museEditControls button {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.7rem;
+  }
+
+  #museToolbar img {
+    width: 1.8rem;
+    height: 1.8rem;
+    padding: 0.3rem;
+  }
+
+
+  .notesSection,
+  .miniTodo,
+  .miniCalendar {
+    padding: 1rem;
+    border-radius: 15px;
+    margin: 0.5rem 0;
+    width: 90%;
+    max-width: 90%;
+    margin: 1rem auto;
+    box-sizing: border-box;
+  }
+
+  #calendarGrid {
+    gap: 2px;
+  }
+
+  .cal-day {
+    min-height: 30px;
+    font-size: 0.7rem;
+  }
+
+  #monthCalendarGrid {
+    gap: 3px;
+  }
+
+  .month-cal-day {
+    min-height: 60px;
+    padding: 5px 3px;
+  }
+
+  .month-cal-day-number {
+    font-size: 0.8rem;
+  }
+
+  /* Hide todo details on very small screens, show only indicator */
+  .month-cal-todos {
+    display: none;
+  }
+
+  .month-cal-day.has-todos-month::after {
+    content: "•";
+    color: var(--accent-light);
+    font-size: 1.2rem;
+    position: absolute;
+    top: 2px;
+    right: 2px;
+  }
+
+  body.dark .month-cal-day.has-todos-month::after {
+    color: var(--accent-neon);
+  }
+
+  .week-todo-item {
+    font-size: 0.7rem;
+    padding: 5px;
+    min-height: 32px;
+  }
+
+  /* Calendar controls phone layout */
+  .calendarButtons {
+    flex-wrap: wrap;
+  }
+
+  .calendarButtons button {
+    flex: 1 0 40%;
+    margin: 2px;
+  }
+
+  /* Todo page */
+  #todoSection {
+    margin: 3rem 0.5rem;
+  }
+
+  .createItems {
+    flex-direction: column;
+  }
+
+  #addItems {
+    padding: 14px;
+  }
+
+  .listItem {
+    padding: 1rem;
+  }
+
+  .btn {
+    padding: 10px 14px;
+    font-size: 16px;
+  }
+
+  /* Timetable page */
+  #timetableSection {
+    margin: 0.5rem;
+    padding: 0.5rem;
+  }
+
+  .calendarTitle h1 {
+    font-size: 1.2rem;
+  }
+
+  .calendarButtons button {
+    padding: 6px 12px;
+    font-size: 0.9rem;
+  }
+
+  /* About page */
+  .aboutSection {
+    padding: 2rem 0.5rem;
+  }
+
+  .profiles img {
+    width: 6rem;
+    height: 6rem;
+  }
+
+  #teamTitle {
+    font-size: 1.5rem;
+  }
+
+  .aboutArrow {
+    width: 24px;
+    height: 24px;
+  }
+
+  #aboutName {
+    font-size: 18px;
+  }
+
+  #aboutInfo {
+    font-size: 11px;
+    max-width: 200px;
+  }
+}
