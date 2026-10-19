@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Yomite: Log into an Account</title>
+        <link rel="icon" type="image/x-icon" href="/WD3_Project_Sem2_MangaWebsite/Project/images/website-icon.png">
+        <link rel="stylesheet" href="/WD3_Project_Sem2_MangaWebsite/Project/css/login.css">
+    </head>
+    <body>
+
+        <!-- ---------- LEFT PANEL ---------- -->
+        <div class="auth-left">
+            <div class="auth-left-kanji">読み手</div>
+            <div class="auth-brand">
+                <a href="/WD3_Project_Sem2_MangaWebsite/Project/index.php">
+                    <div class="auth-brand-logo">Yomite<span>.</span></div>
+                </a>
+                <div class="auth-brand-tagline">Stories Made For You</div>
+                <div class="auth-brand-divider"></div>
+                <p class="auth-brand-desc">Discover, collect, and read anything from around the world.</p>
+            </div>
+        </div>
+
+        <!-- ---------- RIGHT PANEL ---------- -->
+        <div class="auth-content">
+            <div class="auth-form-wrapper">
+                <div class="form-heading">
+                    <h2>Welcome back!</h2>
+                    <p>Fill in your details below to pick up where you left off.</p>
+                </div>
+                <form id="login-form" method="POST">
+                    <label for="identifier">Email or Username</label>
+                    <input type="text" id="identifier" name="identifier" placeholder="chaoticfriedrice@example.com or ChaoticFriedRice" required>
+        
+                    <label for="password">Password</label>
+                    <div class="input-suffix">
+                        <input type="password" id="password" name="password" placeholder="••••••••••••" required>
+                        <span class="show-btn" onclick="togglePassword('password', this)">Show</span>
+                    </div>
+        
+                    <div id="form-error" style="display:none;"></div>
+                    <button type="submit">Login</button>
+                </form>
+                <div class="auth-switch">
+                    Don't have an account? <a href="/WD3_Project_Sem2_MangaWebsite/Project/pages/register.html">Register now!</a>
+                </div>
+            </div>
+        </div>
+
+        <script src="/WD3_Project_Sem2_MangaWebsite/Project/js/login.js"></script>
+    </body>
+</html>
