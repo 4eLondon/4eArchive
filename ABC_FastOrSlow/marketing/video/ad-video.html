@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>ABC Fast or Slow video ad</title>
+<!--
+  Frame-exact video ad. window.render(t) draws the frame at t seconds; nothing
+  animates on its own, so marketing/video/build.mjs can capture every frame.
+  Open in a browser with ?play to preview in real time.
+-->
+<style>
+  @font-face { font-family: 'Bricolage'; src: url('../../node_modules/@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-wght-normal.woff2') format('woff2'); font-weight: 200 800; }
+  @font-face { font-family: 'Outfit'; src: url('../../node_modules/@fontsource-variable/outfit/files/outfit-latin-wght-normal.woff2') format('woff2'); font-weight: 100 900; }
+  :root {
+    --night-950: #07081a; --night-900: #0b0d24; --night-850: #10132f; --night-800: #151939;
+    --ink: #f4f2ff; --ink-dim: #b3b5da; --ink-mute: #8487b3;
+    --sun: #ffd23f; --sun-deep: #c99a12; --pink: #ff3d8b; --pink-deep: #b8155a; --cyan: #2ee6f2; --cyan-deep: #0f8f9a; --mint: #45f0a6;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #000; overflow: hidden; }
+  body { font-family: 'Outfit', sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; }
+  #stage { position: relative; width: 1080px; height: 1920px; overflow: hidden; isolation: isolate;
+    background:
+      radial-gradient(900px 800px at 105% -5%, rgb(255 61 139 / .24), transparent 60%),
+      radial-gradient(900px 800px at -15% 105%, rgb(46 230 242 / .2), transparent 60%),
+      radial-gradient(800px 600px at 50% 45%, rgb(29 34 80 / .75), transparent 70%),
+      var(--night-950); }
+  #grain { position: absolute; inset: 0; z-index: 90; pointer-events: none; opacity: .06; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .abs { position: absolute; left: 0; top: 0; will-change: transform, opacity; }
+  .center { transform-origin: 50% 50%; }
+
+  .cap { --s: 100px; --cap: var(--sun); --deep: var(--sun-deep);
+    display: grid; place-items: center; width: var(--s); height: var(--s); border-radius: calc(var(--s) * .24);
+    font-family: 'Bricolage'; font-weight: 800; font-size: calc(var(--s) * .58); line-height: 1; color: var(--night-950);
+    background: linear-gradient(180deg, color-mix(in oklab, var(--cap) 90%, white), var(--cap) 70%);
+    box-shadow: inset 0 3px 0 rgb(255 255 255 / .45), inset 0 -4px 0 rgb(0 0 0 / .12),
+      0 calc(var(--s) * .09) 0 0 var(--deep), 0 calc(var(--s) * .09 + 18px) 44px -8px rgb(0 0 0 / .6); }
+  .cap.pink { --cap: var(--pink); --deep: var(--pink-deep); color: #fff; }
+  .cap.cyan { --cap: var(--cyan); --deep: var(--cyan-deep); }
+  .cap.night { --cap: #2a2f6b; --deep: #141838; color: var(--ink); }
+  .cap.ghost { --cap: #232860; --deep: #10133a; color: rgb(244 242 255 / .55); }
+
+  .display { font-family: 'Bricolage'; font-weight: 800; letter-spacing: -0.035em; line-height: .9; white-space: nowrap; }
+  .or { color: var(--ink-mute); font-style: italic; font-weight: 600; }
+  .pill { display: flex; align-items: center; gap: 18px; height: 128px; padding: 0 54px; border-radius: 999px;
+    font-family: 'Bricolage'; font-weight: 800; font-size: 60px; }
+  .pill svg { width: 54px; height: 54px; }
+  .pill.fast { background: var(--pink); color: #fff; box-shadow: inset 0 3px 0 rgb(255 255 255 / .35), 0 10px 0 var(--pink-deep), 0 30px 60px -18px rgb(255 61 139 / .6); }
+  .pill.slow { background: var(--cyan); color: var(--night-950); box-shadow: inset 0 3px 0 rgb(255 255 255 / .45), 0 10px 0 var(--cyan-deep), 0 30px 60px -18px rgb(46 230 242 / .5); }
+  .caption { font-family: 'Bricolage'; font-weight: 700; font-size: 58px; letter-spacing: -0.015em; text-align: center; width: 1080px; }
+  .sub { color: var(--ink-dim); font-weight: 500; font-family: 'Outfit'; }
+  .sun { color: var(--sun); }
+  .sticker { font-family: 'Bricolage'; font-weight: 800; color: #fff; background: var(--pink); border-radius: 36px; padding: 18px 50px; white-space: nowrap;
+    box-shadow: 0 12px 0 var(--pink-deep), 0 50px 100px -24px rgb(255 61 139 / .75); }
+
+  .row { width: 920px; height: 150px; border-radius: 30px; padding: 22px 30px; background: rgb(16 19 47 / .92); border: 2px solid rgb(255 255 255 / .08); }
+  .row.ok { border-color: rgb(69 240 166 / .45); background: rgb(14 40 46 / .92); }
+  .row .lab { font-family: 'Bricolage'; font-weight: 700; font-size: 34px; display: flex; gap: 14px; align-items: baseline; }
+  .row .lab span { font-family: 'Outfit'; font-weight: 400; font-size: 28px; color: var(--ink-mute); }
+  .row .val { font-family: 'Bricolage'; font-weight: 600; font-size: 56px; margin-top: 6px; height: 64px; }
+  .row .val .ph { color: rgb(132 135 179 / .55); }
+  .row .chk { position: absolute; right: 30px; top: 36px; width: 64px; height: 64px; border-radius: 99px; background: var(--mint); display: grid; place-items: center; }
+  .row .chk svg { width: 34px; height: 34px; }
+  .caret { display: inline-block; width: 5px; height: 52px; background: var(--cyan); vertical-align: -6px; margin-left: 4px; }
+
+  .lb { width: 900px; height: 150px; border-radius: 34px; display: flex; align-items: center; gap: 28px; padding: 0 40px;
+    background: rgb(16 19 47 / .92); border: 2px solid rgb(255 255 255 / .08); }
+  .lb.win { background: rgb(255 210 63 / .12); border: 4px solid rgb(255 210 63 / .7); }
+  .lb .rk { font-family: 'Bricolage'; font-weight: 800; font-size: 48px; width: 40px; color: var(--ink-mute); }
+  .lb.win .rk { color: var(--sun); }
+  .av { width: 92px; height: 92px; border-radius: 99px; display: grid; place-items: center; font-family: 'Bricolage'; font-weight: 800; font-size: 36px; color: var(--night-950); }
+  .lb .nm { font-weight: 600; font-size: 44px; flex: 1; }
+  .lb .pts { font-family: 'Bricolage'; font-weight: 800; font-size: 72px; font-variant-numeric: tabular-nums; }
+  .rule { display: flex; align-items: center; gap: 22px; height: 100px; padding: 0 38px; border-radius: 999px; background: rgb(255 255 255 / .07);
+    border: 2px solid rgb(255 255 255 / .1); font-size: 40px; font-weight: 600; white-space: nowrap; }
+  .rule b { font-family: 'Bricolage'; font-weight: 800; color: var(--night-950); background: var(--sun); border-radius: 99px; padding: 6px 22px; font-size: 38px; }
+
+  .cta { display: inline-flex; align-items: center; gap: 22px; border-radius: 999px; background: var(--sun); color: var(--night-950);
+    font-family: 'Bricolage'; font-weight: 800; font-size: 72px; padding: 36px 90px; white-space: nowrap;
+    box-shadow: inset 0 3px 0 rgb(255 255 255 / .5), 0 12px 0 var(--sun-deep), 0 40px 80px -20px rgb(255 210 63 / .55); }
+  .chip { display: inline-flex; align-items: center; height: 84px; padding: 0 34px; border-radius: 999px; background: rgb(255 255 255 / .07);
+    border: 2px solid rgb(255 255 255 / .1); font-size: 36px; font-weight: 600; white-space: nowrap; }
+  .mark { font-family: 'Bricolage'; font-weight: 800; text-transform: uppercase; letter-spacing: .22em; color: var(--ink-mute); white-space: nowrap; }
+  .mark b { color: var(--sun); }
+  .dot { width: 22px; height: 22px; border-radius: 99px; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="floaters"></div>
+
+  <!-- persistent watermark -->
+  <div id="wm" class="abs mark" style="font-size:26px; left:0; top:72px; width:1080px; text-align:center">Cawayne<b>Daley</b></div>
+
+  <!-- scene 1-2 -->
+  <div id="capA" class="abs cap pink">A</div>
+  <div id="capB" class="abs cap">B</div>
+  <div id="capC" class="abs cap cyan">C</div>
+  <div id="abcText" class="abs caption sub" style="font-size:72px; font-family:'Bricolage'; font-weight:800; color:var(--ink-dim)">A, B, C...</div>
+  <div id="hFast" class="abs display" style="font-size:250px">Fast</div>
+  <div id="hOr" class="abs display or" style="font-size:250px">or</div>
+  <div id="hSlow" class="abs display" style="font-size:250px">slow?</div>
+  <div id="pillFast" class="abs pill fast"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M215.79 118.17a8 8 0 0 0-5-5.66L153.18 90.9l14.66-73.33a8 8 0 0 0-13.69-7l-112 120a8 8 0 0 0 3 13l57.63 21.61-14.62 73.25a8 8 0 0 0 13.69 7l112-120a8 8 0 0 0 1.94-7.26Z"/></svg>FAST</div>
+  <div id="pillSlow" class="abs pill slow"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M200 75.64V40a16 16 0 0 0-16-16H72a16 16 0 0 0-16 16v36a16 16 0 0 0 6.4 12.8L114.67 128 62.4 167.2A16 16 0 0 0 56 180v36a16 16 0 0 0 16 16h112a16 16 0 0 0 16-16v-35.64a16.09 16.09 0 0 0-6.35-12.77L141.27 128l52.38-39.6A16.09 16.09 0 0 0 200 75.64Z"/></svg>SLOW</div>
+
+  <!-- scene 3: ticker -->
+  <div id="cap1" class="abs caption">The caller hits <span style="color:var(--pink)">STOP</span>...</div>
+  <div id="tick" class="abs cap night" style="--s:440px">A</div>
+  <div id="strip" class="abs" style="display:flex; gap:18px; align-items:center"></div>
+  <div id="stopSmall" class="abs sticker" style="font-size:120px">STOP!</div>
+  <div id="letterIs" class="abs caption">Your letter is <span class="sun">C</span></div>
+  <div id="burst1"></div>
+
+  <!-- scene 4: sheet -->
+  <div id="sheet" class="abs" style="width:1080px; height:1920px">
+    <div id="shCap" class="abs cap" style="--s:170px; left:80px; top:250px">C</div>
+    <div id="shTitle" class="abs" style="left:290px; top:262px; font-family:'Bricolage'; font-weight:800; font-size:62px">Starts with <span class="sun">C</span></div>
+    <div id="shBar" class="abs" style="left:292px; top:362px; display:flex; gap:12px"></div>
+    <div id="shTimer" class="abs" style="left:822px; top:240px; width:178px; height:178px">
+      <svg viewBox="0 0 100 100" style="position:absolute; inset:0; transform:rotate(-90deg)"><circle cx="50" cy="50" r="42" fill="none" stroke="rgb(255 255 255 / .1)" stroke-width="9"/><circle id="ring" cx="50" cy="50" r="42" fill="none" stroke="var(--cyan)" stroke-width="9" stroke-linecap="round" stroke-dasharray="263.9" stroke-dashoffset="0"/></svg>
+      <div id="secs" style="position:absolute; inset:0; display:grid; place-items:center; font-family:'Bricolage'; font-weight:800; font-size:64px">30</div>
+    </div>
+    <div id="opp" class="abs" style="left:80px; top:470px; display:flex; align-items:center; gap:18px; height:84px; padding:0 30px 0 12px; border-radius:999px; background:rgb(255 255 255 / .06)">
+      <div class="av" style="width:62px; height:62px; font-size:26px; background:var(--cyan)">KE</div>
+      <span style="font-size:36px; font-weight:600">Kemar</span><span id="oppPips" style="display:flex; gap:8px"></span>
+    </div>
+    <div id="rows"></div>
+  </div>
+
+  <!-- scene 5: big stop -->
+  <div id="dim" class="abs" style="width:1080px; height:1920px; background:rgb(7 8 26 / .88)"></div>
+  <div id="bigStop" class="abs sticker" style="font-size:250px; border-radius:60px; padding:30px 80px">STOP!</div>
+  <div id="stopCap" class="abs caption" style="font-size:66px">First one done shouts <span style="color:var(--pink)">STOP</span>.</div>
+  <div id="stopSub" class="abs caption sub" style="font-size:48px">Everyone's pencils go down.</div>
+  <div id="burst2"></div>
+
+  <!-- scene 6: scores -->
+  <div id="scTitle" class="abs display" style="font-size:150px; text-align:center; width:1080px">Vote. Score.<br/><span class="sun">Brag.</span></div>
+  <div id="rule1" class="abs rule">Unique answer <b>+100</b></div>
+  <div id="rule2" class="abs rule">Same answer? Split it <b>+50</b></div>
+  <div id="lb1" class="abs lb win"><span class="rk">1</span><div class="av" style="background:var(--pink); color:#fff">CA</div><span class="nm">Cawayne</span><span class="pts" id="pts1">0</span></div>
+  <div id="lb2" class="abs lb"><span class="rk">2</span><div class="av" style="background:var(--cyan)">KE</div><span class="nm">Kemar</span><span class="pts" id="pts2">0</span></div>
+  <div id="lb3" class="abs lb"><span class="rk">3</span><div class="av" style="background:var(--sun)">TA</div><span class="nm">Tash</span><span class="pts" id="pts3">0</span></div>
+
+  <!-- scene 7: end card -->
+  <div id="end" class="abs" style="width:1080px; height:1920px">
+    <div id="eCaps" class="abs" style="display:flex; gap:26px; align-items:flex-end">
+      <div class="cap pink" style="--s:190px; transform:rotate(-7deg)">A</div><div class="cap" style="--s:190px; transform:translateY(-12px)">B</div><div class="cap cyan" style="--s:190px; transform:rotate(6deg)">C</div>
+    </div>
+    <div id="eTitle" class="abs display" style="font-size:150px; text-align:center; width:1080px">Fast <span class="or">or</span> Slow</div>
+    <div id="eTag" class="abs caption" style="font-size:60px"><span class="sun">Think quick. Name it. Score it.</span></div>
+    <div id="eSub" class="abs caption sub" style="font-size:50px">Play with your friends, on any phone.</div>
+    <div id="eChips" class="abs" style="display:flex; gap:20px; justify-content:center; width:1080px"><span class="chip">Free</span><span class="chip">No app</span><span class="chip">2 to 12 players</span></div>
+    <div id="eCta" class="abs cta">Play now &rarr;</div>
+    <div id="eUrl" class="abs caption" style="font-size:56px; font-weight:800">abc-fast-or-slow.vercel.app</div>
+    <div id="eMark" class="abs mark" style="font-size:30px; width:1080px; text-align:center">Made by Cawayne<b>Daley</b></div>
+  </div>
+  <div id="grain"></div>
+</div>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const ALPHA = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+const clamp = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v));
+const seg = (t, a, b) => clamp((t - a) / (b - a));
+const lerp = (a, b, p) => a + (b - a) * p;
+const eOut = (p) => 1 - Math.pow(1 - p, 3);
+const eIn = (p) => p * p * p;
+const eInOut = (p) => (p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2);
+const eBack = (p) => { const c1 = 1.9, c3 = c1 + 1; return 1 + c3 * Math.pow(p - 1, 3) + c1 * Math.pow(p - 1, 2); };
+const slam = (t, a, d = 0.32) => { const p = seg(t, a, a + d); return { s: lerp(2.4, 1, eBack(p)), o: clamp(p * 3) }; };
+
+function put(el, { x = 0, y = 0, s = 1, r = 0, o = 1, origin } = {}) {
+  el.style.opacity = o <= 0.001 ? 0 : o;
+  el.style.visibility = o <= 0.001 ? 'hidden' : 'visible';
+  el.style.transform = `translate(${x}px, ${y}px) rotate(${r}deg) scale(${s})`;
+  if (origin) el.style.transformOrigin = origin;
+}
+const w = (el) => el.offsetWidth, h = (el) => el.offsetHeight;
+const centerX = (el) => (1080 - w(el)) / 2;
+
+// ── shared ticker maths (build.mjs mirrors this for the tick sounds) ──
+const TICK_START = 4.55, TICK_END = 6.35, TICK_TOTAL = 26 * 3 + 2; // lands on C
+const ticksAt = (t) => Math.floor(TICK_TOTAL * eOut(seg(t, TICK_START, TICK_END)));
+
+// ── build dynamic bits ──
+const floaters = [['M', 150, -40, 1300, -14], ['Z', 120, 900, 520, 12], ['Q', 110, 60, 420, -8], ['S', 130, 880, 1500, 10], ['K', 100, 470, 1760, 6]];
+floaters.forEach(([l, s, x, y, r], i) => {
+  const d = document.createElement('div');
+  d.className = 'abs cap ghost'; d.style.setProperty('--s', s + 'px'); d.textContent = l; d.dataset.f = JSON.stringify({ x, y, r, i });
+  $('floaters').appendChild(d);
+});
+for (let i = -3; i <= 3; i++) {
+  const d = document.createElement('div');
+  d.style.cssText = `display:grid;place-items:center;border-radius:20px;font-family:Bricolage;font-weight:800;${i === 0 ? 'width:100px;height:100px;font-size:56px;background:rgb(255 255 255 / .12)' : 'width:72px;height:72px;font-size:38px;color:var(--ink-mute)'}`;
+  d.dataset.i = i; $('strip').appendChild(d);
+}
+const ANSWERS = [['Boy', "A boy's name", 'Chris'], ['Girl', "A girl's name", 'Chloe'], ['Animal', 'Any creature', 'Cheetah'], ['Place', 'City, country, town', 'Cuba'], ['Food', 'Dish, fruit, snack', 'Curry goat']];
+ANSWERS.forEach(([lab, hint], i) => {
+  const r = document.createElement('div');
+  r.className = 'abs row'; r.id = 'row' + i;
+  r.innerHTML = `<div class="lab">${lab}<span>${hint}</span></div><div class="val"></div><div class="chk"><svg viewBox="0 0 256 256"><path d="M40 136l56 56L216 72" fill="none" stroke="#07081a" stroke-width="32" stroke-linecap="round" stroke-linejoin="round"/></svg></div>`;
+  $('rows').appendChild(r);
+});
+for (let i = 0; i < 5; i++) { const b = document.createElement('div'); b.style.cssText = 'width:84px;height:14px;border-radius:99px;background:rgb(255 255 255 / .1);overflow:hidden'; b.innerHTML = '<div style="height:100%;background:var(--mint);width:0"></div>'; $('shBar').appendChild(b); }
+for (let i = 0; i < 5; i++) { const p = document.createElement('div'); p.className = 'dot'; p.style.cssText = 'width:16px;height:16px;border-radius:99px;background:rgb(255 255 255 / .18)'; $('oppPips').appendChild(p); }
+function makeBurst(id) { for (let i = 0; i < 14; i++) { const d = document.createElement('div'); d.className = 'abs'; d.style.cssText = `width:26px;height:26px;border-radius:99px;background:${['var(--pink)', 'var(--cyan)', 'var(--sun)'][i % 3]}`; $(id).appendChild(d); } }
+makeBurst('burst1'); makeBurst('burst2');
+function burst(id, t, t0, cx, cy, spread = 360) {
+  const p = seg(t, t0, t0 + 0.9);
+  [...$(id).children].forEach((d, i) => {
+    const a = (i / 14) * Math.PI * 2 + 0.3;
+    put(d, { x: cx + Math.cos(a) * spread * eOut(p) - 13, y: cy + Math.sin(a) * spread * 0.75 * eOut(p) - 13, s: 1 - p * 0.6, o: p > 0 && p < 1 ? 1 - p : 0 });
+  });
+}
+
+window.DURATION = 16.5;
+window.render = function (t) {
+  // camera shake on the two STOP hits
+  const shake = (t0) => { const p = seg(t, t0, t0 + 0.45); return p > 0 && p < 1 ? Math.sin(p * 40) * 18 * (1 - p) : 0; };
+  const sh = shake(6.35) + shake(10.6);
+  $('stage').style.transform = `translate(${sh}px, ${sh * 0.4}px)`;
+
+  // background floaters drift
+  [...$('floaters').children].forEach((d) => {
+    const f = JSON.parse(d.dataset.f);
+    const endFade = 1 - seg(t, 14.0, 14.4);
+    put(d, { x: f.x + Math.sin(t * 0.6 + f.i) * 14, y: f.y + Math.cos(t * 0.5 + f.i * 2) * 18, r: f.r + Math.sin(t * 0.4 + f.i) * 4, o: 0.85 * seg(t, 0.1 + f.i * 0.1, 0.8 + f.i * 0.1) * endFade });
+  });
+
+  // watermark (hidden on end card, which carries its own mark)
+  put($('wm'), { o: seg(t, 0.5, 1) * (1 - seg(t, 14.1, 14.4)) });
+
+  // ── scene 1/2: keycaps drop, then shrink to the top ──
+  const capsUp = eInOut(seg(t, 2.15, 2.65));
+  const capsOut = seg(t, 4.35, 4.6);
+  ['capA', 'capB', 'capC'].forEach((id, i) => {
+    const el = $(id); const S = 230;
+    el.style.setProperty('--s', S + 'px');
+    const drop = eBack(seg(t, 0.15 + i * 0.14, 0.75 + i * 0.14));
+    // positions are visual centers; scale happens around each cap's center
+    const small = 0.38;
+    const cxBig = 540 + (i - 1) * (S + 34), cyBig = 735;
+    const cxUp = 540 + (i - 1) * (S * small + 16), cyUp = 200;
+    const scale = lerp(1, small, capsUp);
+    const x = lerp(cxBig, cxUp, capsUp) - S / 2;
+    const y = lerp(lerp(-400, cyBig, drop), cyUp, capsUp) - S / 2;
+    put(el, { x, y: y - capsOut * 300, s: scale, r: [-7, 0, 6][i] * drop, o: seg(t, 0.15 + i * 0.14, 0.3 + i * 0.14) * (1 - capsOut) });
+  });
+  const abc = $('abcText');
+  put(abc, { x: 0, y: 980 + 30 * (1 - eOut(seg(t, 0.95, 1.4))), o: seg(t, 0.95, 1.3) * (1 - seg(t, 2.1, 2.3)) });
+
+  // headline slams
+  const hOut = eIn(seg(t, 4.35, 4.65));
+  const f1 = slam(t, 2.55), f2 = slam(t, 2.8), f3 = slam(t, 3.02);
+  const line1Y = 560, line2Y = 820;
+  const fastW = w($('hFast')), orW = w($('hOr'));
+  const lx = (1080 - (fastW + 50 + orW)) / 2;
+  put($('hFast'), { x: lx, y: line1Y - hOut * 700, s: f1.s, o: f1.o * (1 - hOut), origin: '50% 60%' });
+  put($('hOr'), { x: lx + fastW + 50, y: line1Y - hOut * 700, s: f2.s, o: f2.o * (1 - hOut), origin: '50% 60%' });
+  put($('hSlow'), { x: centerX($('hSlow')), y: line2Y - hOut * 700, s: f3.s, o: f3.o * (1 - hOut), origin: '50% 60%' });
+  // pills, FAST gets "pressed"
+  const press = seg(t, 3.85, 4.15); const pressS = press > 0 && press < 1 ? 1 - Math.sin(press * Math.PI) * 0.08 : 1;
+  const pf = eBack(seg(t, 3.3, 3.62)), ps = eBack(seg(t, 3.42, 3.74));
+  const pillsOut = eIn(seg(t, 4.3, 4.6));
+  const fastEl = $('pillFast'), slowEl = $('pillSlow');
+  const pw = w(fastEl) + 40 + w(slowEl), px = (1080 - pw) / 2;
+  put(fastEl, { x: px, y: 1180 + (1 - pf) * 160 + pillsOut * 900, s: pressS * lerp(0.6, 1, pf), o: clamp(pf * 2) * (1 - pillsOut) });
+  put(slowEl, { x: px + w(fastEl) + 40, y: 1180 + (1 - ps) * 160 + pillsOut * 900, s: lerp(0.6, 1, ps), o: clamp(ps * 2) * (1 - pillsOut) * (1 - press * 0.55) });
+
+  // ── scene 3: ticker ──
+  const tkIn = eBack(seg(t, 4.45, 4.85)); const tkOut = eInOut(seg(t, 7.35, 7.8));
+  const ticks = ticksAt(t); const letter = ALPHA[ticks % 26];
+  const locked = t >= TICK_END;
+  const tick = $('tick');
+  tick.textContent = letter;
+  tick.className = 'abs cap ' + (locked ? '' : 'night');
+  const tickBounce = locked ? 1 + Math.sin(seg(t, TICK_END, TICK_END + 0.35) * Math.PI) * 0.08 : 1;
+  // ticker morphs into the sheet's small keycap
+  const tx = lerp(320, 80 - (440 - 170) / 2, tkOut), ty = lerp(640, 250 - (440 - 170) / 2, tkOut);
+  put(tick, { x: tx, y: ty + (1 - tkIn) * 200, s: lerp(1, 170 / 440, tkOut) * lerp(0.7, 1, tkIn) * tickBounce, o: clamp(tkIn * 2) * (t < 7.8 ? 1 : 0) });
+  put($('cap1'), { x: 0, y: 450 + (1 - eOut(seg(t, 4.6, 4.95))) * 30, o: seg(t, 4.6, 4.9) * (1 - seg(t, 6.3, 6.45)) });
+  const strip = $('strip');
+  [...strip.children].forEach((d) => { const i = +d.dataset.i; d.textContent = ALPHA[(((ticks + i) % 26) + 26) % 26];
+    if (i === 0) { d.style.background = locked ? 'var(--sun)' : 'rgb(255 255 255 / .12)'; d.style.color = locked ? 'var(--night-950)' : 'var(--ink)'; }
+    else d.style.opacity = 1 - Math.abs(i) * 0.22; });
+  put(strip, { x: centerX(strip), y: 1180, o: seg(t, 4.6, 4.9) * (1 - tkOut) });
+  const st = slam(t, TICK_END, 0.3);
+  put($('stopSmall'), { x: 600, y: 520, s: st.s, r: 10, o: st.o * (1 - seg(t, 7.2, 7.4)) });
+  put($('letterIs'), { x: 0, y: 1330 + (1 - eOut(seg(t, 6.55, 6.9))) * 30, o: seg(t, 6.55, 6.85) * (1 - seg(t, 7.2, 7.4)) });
+  burst('burst1', t, TICK_END, 540, 860, 420);
+
+  // ── scene 4: sheet ──
+  const sheetOn = t >= 7.6 && t < 12.5;
+  const sheetFade = seg(t, 7.55, 7.8) * (1 - seg(t, 12.2, 12.5));
+  put($('sheet'), { o: sheetOn ? sheetFade : 0 });
+  put($('shCap'), { o: t >= 7.8 ? 1 : 0 });
+  put($('shTitle'), { x: 0, y: (1 - eOut(seg(t, 7.7, 8.0))) * 20, o: seg(t, 7.7, 7.95) });
+  const secsLeft = Math.max(0, 30 - Math.floor(seg(t, 7.8, 10.6) * 11));
+  $('secs').textContent = secsLeft;
+  $('ring').setAttribute('stroke-dashoffset', String(263.9 * (1 - secsLeft / 30)));
+  put($('shTimer'), { o: seg(t, 7.75, 8.0) });
+  put($('opp'), { x: 0, y: (1 - eOut(seg(t, 7.85, 8.15))) * 20, o: seg(t, 7.85, 8.1) });
+  const oppFilled = Math.floor(seg(t, 8.3, 10.4) * 4.99);
+  [...$('oppPips').children].forEach((p, i) => (p.style.background = i < oppFilled ? 'var(--cyan)' : 'rgb(255 255 255 / .18)'));
+  let done = 0;
+  ANSWERS.forEach(([, , ans], i) => {
+    const r = $('row' + i);
+    const t0 = 8.15 + i * 0.44;
+    const typed = Math.floor(seg(t, t0, t0 + 0.32) * ans.length + 0.0001);
+    const full = t >= t0 + 0.34;
+    if (full) done++;
+    const val = r.querySelector('.val');
+    const caret = t >= t0 - 0.1 && !full ? '<span class="caret"></span>' : '';
+    val.innerHTML = typed > 0 ? ans.slice(0, typed) + caret : `<span class="ph">C...</span>${caret}`;
+    r.className = 'abs row' + (full ? ' ok' : '');
+    const pop = seg(t, t0 + 0.34, t0 + 0.6);
+    put(r.querySelector('.chk'), { s: full ? eBack(pop) : 0, o: full ? 1 : 0 });
+    const inP = eOut(seg(t, 7.7 + i * 0.07, 8.05 + i * 0.07));
+    put(r, { x: 80 + (1 - inP) * 120, y: 600 + i * 172, o: inP });
+  });
+  [...$('shBar').children].forEach((b, i) => (b.firstChild.style.width = i < done ? '100%' : '0'));
+
+  // ── scene 5: big STOP ──
+  const bs = slam(t, 10.6, 0.34);
+  const bsOut = seg(t, 12.2, 12.45);
+  put($('dim'), { o: seg(t, 10.55, 10.75) * (1 - bsOut) });
+  const bigStop = $('bigStop');
+  put(bigStop, { x: centerX(bigStop), y: 640, s: bs.s, r: -5, o: bs.o * (1 - bsOut) });
+  put($('stopCap'), { x: 0, y: 1060 + (1 - eOut(seg(t, 10.95, 11.3))) * 30, o: seg(t, 10.95, 11.25) * (1 - bsOut) });
+  put($('stopSub'), { x: 0, y: 1160 + (1 - eOut(seg(t, 11.2, 11.5))) * 30, o: seg(t, 11.2, 11.45) * (1 - bsOut) });
+  burst('burst2', t, 10.6, 540, 780, 480);
+
+  // ── scene 6: scores ──
+  const scOut = seg(t, 13.95, 14.2);
+  put($('scTitle'), { x: 0, y: 330 + (1 - eOut(seg(t, 12.45, 12.8))) * 40, o: seg(t, 12.45, 12.7) * (1 - scOut) });
+  ['rule1', 'rule2'].forEach((id, i) => { const el = $(id); const p = eBack(seg(t, 12.7 + i * 0.15, 13.0 + i * 0.15));
+    put(el, { x: centerX(el), y: 740 + i * 128, s: lerp(0.7, 1, p), o: clamp(p * 2) * (1 - scOut) }); });
+  const finals = [450, 400, 300];
+  ['lb1', 'lb2', 'lb3'].forEach((id, i) => { const el = $(id); const p = eOut(seg(t, 12.9 + i * 0.12, 13.25 + i * 0.12));
+    put(el, { x: 90 + (1 - p) * 200, y: 1060 + i * 176, o: p * (1 - scOut) });
+    $('pts' + (i + 1)).textContent = Math.round(finals[i] * eOut(seg(t, 13.05, 13.75))); });
+
+  // ── scene 7: end card ──
+  const eIn0 = 14.15;
+  put($('end'), { o: t >= eIn0 ? 1 : 0 });
+  const ec = eBack(seg(t, eIn0, eIn0 + 0.45));
+  const eCaps = $('eCaps');
+  put(eCaps, { x: centerX(eCaps), y: 300 + (1 - ec) * -200, s: lerp(0.5, 1, ec), o: clamp(ec * 2) });
+  const et = slam(t, eIn0 + 0.25, 0.32);
+  put($('eTitle'), { x: 0, y: 610, s: et.s, o: et.o });
+  put($('eTag'), { x: 0, y: 840 + (1 - eOut(seg(t, eIn0 + 0.5, eIn0 + 0.8))) * 30, o: seg(t, eIn0 + 0.5, eIn0 + 0.75) });
+  put($('eSub'), { x: 0, y: 930 + (1 - eOut(seg(t, eIn0 + 0.6, eIn0 + 0.9))) * 30, o: seg(t, eIn0 + 0.6, eIn0 + 0.85) });
+  const chips = $('eChips');
+  put(chips, { x: 0, y: 1070, s: lerp(0.85, 1, eBack(seg(t, eIn0 + 0.75, eIn0 + 1.05))), o: seg(t, eIn0 + 0.75, eIn0 + 0.95) });
+  const cta = $('eCta'); const pulse = t > eIn0 + 1.4 ? 1 + Math.sin((t - eIn0 - 1.4) * 5) * 0.025 : 1;
+  const cp = eBack(seg(t, eIn0 + 0.9, eIn0 + 1.25));
+  put(cta, { x: centerX(cta), y: 1300, s: lerp(0.6, 1, cp) * pulse, o: clamp(cp * 2) });
+  put($('eUrl'), { x: 0, y: 1520, o: seg(t, eIn0 + 1.1, eIn0 + 1.35) });
+  put($('eMark'), { x: 0, y: 1700, o: seg(t, eIn0 + 1.3, eIn0 + 1.6) });
+};
+
+// Real-time preview: open ad-video.html?play
+document.fonts.ready.then(() => {
+  window.render(0);
+  window.READY = true;
+  if (location.search.includes('play')) {
+    const start = performance.now();
+    const loop = () => { const t = ((performance.now() - start) / 1000) % window.DURATION; window.render(t); requestAnimationFrame(loop); };
+    requestAnimationFrame(loop);
+  }
+});
+</script>
+</body>
+</html>
