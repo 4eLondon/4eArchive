@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>ABC Fast or Slow ad</title>
+<!--
+  Ad artboards for ABC Fast or Slow. Render with:
+    node marketing/render.mjs
+  ?f=story  1080x1920  WhatsApp Status, Instagram / Facebook Stories, TikTok
+  ?f=square 1080x1080  Instagram / Facebook feed
+  ?f=wide   1200x630   Link preview card (Open Graph), X / Facebook link posts
+-->
+<style>
+  @font-face { font-family: 'Bricolage'; src: url('../node_modules/@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-wght-normal.woff2') format('woff2'); font-weight: 200 800; }
+  @font-face { font-family: 'Outfit'; src: url('../node_modules/@fontsource-variable/outfit/files/outfit-latin-wght-normal.woff2') format('woff2'); font-weight: 100 900; }
+
+  :root {
+    --night-950: #07081a; --night-900: #0b0d24; --night-800: #151939; --night-700: #1d2250;
+    --ink: #f4f2ff; --ink-dim: #b3b5da; --ink-mute: #8487b3;
+    --sun: #ffd23f; --sun-deep: #c99a12; --pink: #ff3d8b; --pink-deep: #b8155a; --cyan: #2ee6f2; --cyan-deep: #0f8f9a; --mint: #45f0a6;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--night-950); }
+  body { font-family: 'Outfit', sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; }
+
+  .board { position: relative; overflow: hidden; isolation: isolate;
+    background:
+      radial-gradient(900px 700px at 105% -5%, rgb(255 61 139 / .22), transparent 60%),
+      radial-gradient(800px 700px at -15% 105%, rgb(46 230 242 / .18), transparent 60%),
+      radial-gradient(700px 500px at 50% 45%, rgb(29 34 80 / .7), transparent 70%),
+      var(--night-950);
+  }
+  .board::after { content: ''; position: absolute; inset: 0; z-index: 50; pointer-events: none; opacity: .06; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+  /* Keycaps: the brand shape */
+  .cap { --s: 100px; --cap: var(--sun); --deep: var(--sun-deep);
+    display: inline-grid; place-items: center; width: var(--s); height: var(--s); border-radius: calc(var(--s) * .24);
+    font-family: 'Bricolage'; font-weight: 800; font-size: calc(var(--s) * .58); line-height: 1; color: var(--night-950);
+    background: linear-gradient(180deg, color-mix(in oklab, var(--cap) 90%, white), var(--cap) 70%);
+    box-shadow: inset 0 3px 0 rgb(255 255 255 / .45), inset 0 -4px 0 rgb(0 0 0 / .12),
+      0 calc(var(--s) * .09) 0 0 var(--deep), 0 calc(var(--s) * .09 + 16px) 40px -8px rgb(0 0 0 / .6); }
+  .cap.pink { --cap: var(--pink); --deep: var(--pink-deep); color: #fff; }
+  .cap.cyan { --cap: var(--cyan); --deep: var(--cyan-deep); }
+  .cap.ghost { --cap: #262c66; --deep: #11143a; color: var(--ink); }
+  .caps { display: flex; align-items: flex-end; gap: calc(var(--s) * .12); }
+  .caps .cap:nth-child(1) { transform: rotate(-7deg); }
+  .caps .cap:nth-child(2) { transform: translateY(calc(var(--s) * -.06)); }
+  .caps .cap:nth-child(3) { transform: rotate(6deg); }
+
+  .display { font-family: 'Bricolage'; font-weight: 800; letter-spacing: -0.03em; line-height: .92; }
+  .or { color: var(--ink-mute); font-style: italic; font-weight: 600; }
+  .sun { color: var(--sun); }
+
+  .chip { display: inline-flex; align-items: center; gap: 12px; border-radius: 999px; padding: 16px 26px;
+    background: rgb(255 255 255 / .07); border: 1px solid rgb(255 255 255 / .1); font-weight: 600; color: var(--ink); white-space: nowrap; }
+  .chip i { width: 12px; height: 12px; border-radius: 99px; background: var(--mint); display: inline-block; }
+
+  .cta { display: inline-flex; align-items: center; gap: 18px; border-radius: 999px; background: var(--sun); color: var(--night-950);
+    font-family: 'Bricolage'; font-weight: 800; letter-spacing: -0.01em;
+    box-shadow: inset 0 3px 0 rgb(255 255 255 / .5), 0 10px 0 var(--sun-deep), 0 30px 60px -16px rgb(255 210 63 / .5); }
+  .url { font-family: 'Bricolage'; font-weight: 700; color: var(--ink); letter-spacing: -0.01em; }
+
+  .mark { font-family: 'Bricolage'; font-weight: 800; text-transform: uppercase; letter-spacing: .22em; color: var(--ink-mute); }
+  .mark b { color: var(--sun); font-weight: 800; }
+
+  /* Phone frame around a real screenshot */
+  .phone { position: absolute; border-radius: 64px; padding: 14px; background: linear-gradient(160deg, #2b3070, #0b0d24 60%);
+    box-shadow: 0 0 0 2px rgb(255 255 255 / .08), 0 60px 120px -30px rgb(0 0 0 / .85), 0 30px 60px -30px rgb(255 61 139 / .25); }
+  .phone img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; border-radius: 52px; }
+
+  .floater { position: absolute; z-index: -1; opacity: .9; }
+
+  /* STOP sticker */
+  .stop { position: absolute; z-index: 5; font-family: 'Bricolage'; font-weight: 800; color: #fff; background: var(--pink); border-radius: 28px;
+    box-shadow: 0 10px 0 var(--pink-deep), 0 40px 80px -20px rgb(255 61 139 / .7); }
+
+  /* ── formats ── */
+  .story  { width: 1080px; height: 1920px; }
+  .square { width: 1080px; height: 1080px; }
+  .wide   { width: 1200px; height: 630px; }
+  .board > section { display: none; }
+  .story  .f-story, .square .f-square, .wide .f-wide { display: block; position: absolute; inset: 0; }
+</style>
+</head>
+<body>
+<div id="board" class="board story">
+
+  <!-- ═════════ STORY 1080x1920 ═════════ -->
+  <section class="f-story">
+    <div style="position:absolute; top:80px; left:80px; right:80px; display:flex; justify-content:space-between; align-items:center;">
+      <div class="caps" style="--s:64px"><span class="cap pink" style="--s:64px">A</span><span class="cap" style="--s:64px">B</span><span class="cap cyan" style="--s:64px">C</span></div>
+      <div class="mark" style="font-size:24px">Cawayne<b>Daley</b></div>
+    </div>
+
+    <div style="position:absolute; top:230px; left:80px; right:80px;">
+      <p class="display" style="font-size:64px; color:var(--ink-dim); letter-spacing:-0.01em">A, B, C...</p>
+      <h1 class="display" style="font-size:176px; margin-top:14px">Fast <span class="or">or</span><br/>slow?</h1>
+      <p style="font-size:44px; line-height:1.3; color:var(--ink-dim); margin-top:34px; max-width:860px">
+        The word game you played as a kid. <span class="sun" style="font-weight:700">Now on every phone.</span>
+      </p>
+    </div>
+
+    <div class="phone" style="width:430px; height:930px; left:560px; top:880px; transform:rotate(7deg)"><img src="shots/results.jpg" alt="" /></div>
+    <div class="phone" style="width:450px; height:974px; left:100px; top:830px; transform:rotate(-5deg)"><img src="shots/answering-filled.jpg" alt="" /></div>
+    <div class="stop" style="left:650px; top:800px; font-size:92px; padding:16px 42px; transform:rotate(9deg)">STOP!</div>
+
+    <span class="cap ghost floater" style="--s:120px; left:-30px; top:1260px; transform:rotate(-14deg)">M</span>
+    <span class="cap ghost floater" style="--s:96px; right:40px; top:600px; transform:rotate(12deg)">Z</span>
+
+    <div style="position:absolute; left:0; right:0; bottom:0; height:640px; background:linear-gradient(180deg, transparent, rgb(7 8 26 / .97) 26%, var(--night-950) 34%); z-index:6"></div>
+    <div style="position:absolute; left:80px; right:80px; bottom:96px; z-index:7; text-align:center;">
+      <div style="display:flex; justify-content:center; gap:16px; font-size:30px; margin-bottom:46px">
+        <span class="chip">Free</span><span class="chip">No app needed</span><span class="chip">2 to 12 players</span>
+      </div>
+      <span class="cta" style="font-size:58px; padding:30px 70px">Play now &rarr;</span>
+      <p class="url" style="font-size:38px; margin-top:40px">abc-fast-or-slow.vercel.app</p>
+    </div>
+  </section>
+
+  <!-- ═════════ SQUARE 1080x1080 ═════════ -->
+  <section class="f-square">
+    <div style="position:absolute; top:70px; left:70px; right:70px; display:flex; justify-content:space-between; align-items:center;">
+      <div class="caps" style="--s:56px"><span class="cap pink" style="--s:56px">A</span><span class="cap" style="--s:56px">B</span><span class="cap cyan" style="--s:56px">C</span></div>
+      <div class="mark" style="font-size:20px">Cawayne<b>Daley</b></div>
+    </div>
+
+    <div style="position:absolute; top:220px; left:70px; width:560px;">
+      <p class="display" style="font-size:46px; color:var(--ink-dim); letter-spacing:-0.01em">A, B, C...</p>
+      <h1 class="display" style="font-size:132px; margin-top:10px">Fast <span class="or">or</span><br/>slow?</h1>
+      <p style="font-size:33px; line-height:1.32; color:var(--ink-dim); margin-top:30px">
+        Pick a letter. Name a boy, girl, animal, place and food. <span class="sun" style="font-weight:700">First one done shouts STOP.</span>
+      </p>
+      <div style="display:flex; flex-wrap:wrap; gap:12px; font-size:24px; margin-top:34px">
+        <span class="chip" style="padding:12px 20px">Free</span><span class="chip" style="padding:12px 20px">No app</span><span class="chip" style="padding:12px 20px">2 to 12 players</span>
+      </div>
+    </div>
+
+    <div class="phone" style="width:390px; height:840px; left:650px; top:180px; transform:rotate(5deg)"><img src="shots/answering-filled.jpg" alt="" /></div>
+    <div class="stop" style="left:770px; top:140px; font-size:66px; padding:12px 30px; transform:rotate(10deg)">STOP!</div>
+
+    <div style="position:absolute; left:70px; bottom:70px; display:flex; align-items:center; gap:28px; z-index:6">
+      <span class="cta" style="font-size:40px; padding:22px 46px">Play free &rarr;</span>
+      <span class="url" style="font-size:28px">abc-fast-or-slow<br/>.vercel.app</span>
+    </div>
+  </section>
+
+  <!-- ═════════ WIDE 1200x630 (link preview) ═════════ -->
+  <section class="f-wide">
+    <div style="position:absolute; top:70px; left:70px; width:700px;">
+      <div class="caps" style="--s:96px"><span class="cap pink" style="--s:96px">A</span><span class="cap" style="--s:96px">B</span><span class="cap cyan" style="--s:96px">C</span></div>
+      <h1 class="display" style="font-size:104px; margin-top:34px">Fast <span class="or">or</span> Slow</h1>
+      <p style="font-size:34px; line-height:1.3; color:var(--ink-dim); margin-top:20px">
+        <span class="sun" style="font-weight:700">Think quick. Name it. Score it.</span><br/>The word party game for friends on a call.
+      </p>
+      <div class="mark" style="font-size:18px; margin-top:34px">Made by Cawayne<b>Daley</b></div>
+    </div>
+    <div class="phone" style="width:330px; height:710px; left:820px; top:70px; transform:rotate(6deg)"><img src="shots/answering-filled.jpg" alt="" /></div>
+    <div class="stop" style="left:900px; top:470px; font-size:58px; padding:10px 26px; transform:rotate(-8deg)">STOP!</div>
+  </section>
+</div>
+<script>
+  const f = new URLSearchParams(location.search).get('f') || 'story';
+  document.getElementById('board').className = 'board ' + f;
+</script>
+</body>
+</html>
